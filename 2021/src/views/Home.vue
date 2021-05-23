@@ -1,18 +1,33 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="choose-box">
+      <div class="greeting-banner">
+        <h2>
+          欢迎使用NJU问卷系统！
+        </h2>
+      </div>
+      <div class="choose-area">
+        <div class="choose-btn" @click="toLogin">登录，开启探索之旅</div>
+        <div class="choose-btn" @click="toSignup">注册，准备探索之旅</div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
 export default {
-  name: 'Home',
-  components: {
-    HelloWorld
-  }
+  name: "Home",
+  methods: {
+    toLogin() {
+      this.$router.push('/login')
+    },
+    toSignup() {
+      this.$router.push('signup')
+    }
+  },
 }
 </script>
+
+<style scoped>
+
+</style>

@@ -1,0 +1,22 @@
+.iconfont {
+    width: 25px;
+    height: 25px;
+}
+
+.icon-mine {
+    background-image: url(~@/assets/img/Signup/头像.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.icon-lock {
+    background-image: url(~@/assets/img/Signup/密码.png);
+    background-repeat: no-repeat;
+    background-size: 20px 20px;
+}
+
+.icon-lock-again {
+    background-image: url(~@/assets/img/Signup/重复密码.png);
+    background-repeat: no-repeat;
+    background-size: 20px 20px;
+}

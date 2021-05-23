@@ -1,0 +1,16 @@
+.iconfont {
+    width: 25px;
+    height: 25px;
+}
+
+.icon-mine {
+    background-image: url(~@/assets/img/Login/头像.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.icon-lock {
+    background-image: url(~@/assets/img/Login/密码.png);
+    background-repeat: no-repeat;
+    background-size: 20px 20px;
+}
