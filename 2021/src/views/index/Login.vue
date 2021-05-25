@@ -11,7 +11,7 @@
           <span class="iconfont icon-lock"></span>
           <input type="password" placeholder="密码">
         </div>
-        <div class="input-btn">
+        <div class="input-btn" @click="toMain">
           登  录
         </div>
         <div class="sign-up">
@@ -31,6 +31,9 @@ export default {
   methods: {
     toSignup() {
       this.$router.push('/signup')
+    },
+    toMain() {
+      this.$router.push('/main')
     }
   }
 }

@@ -1,7 +1,7 @@
 * {
     padding: 0;
     margin: 0;
-    box-sizing: border-box;
+    /*box-sizing: border-box;*/
 }
 
 .login {
@@ -10,7 +10,7 @@
     align-items: center;
     width: 100%;
     min-height: 100vh;
-    background-image: url(~@/assets/img/Login/login_bg.jpg);
+    background-image: url(~@/assets/img/index/Login/login_bg.jpg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;

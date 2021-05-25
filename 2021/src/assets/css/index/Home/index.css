@@ -1,16 +1,10 @@
-* {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-}
-
 .home {
     display: flex;
     width: 100%;
     min-height: 100vh;
     justify-content: center;
     align-items: center;
-    background-image: url(~@/assets/img/Home/home_bg.png);
+    background-image: url(~@/assets/img/index/Home/home_bg.png);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;

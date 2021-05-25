@@ -7,6 +7,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'App',
   data() {
@@ -32,11 +33,16 @@ export default {
 
 <style>
 @import "~@/assets/css/transition.css";
-@import "~@/assets/css/Signup/page.css";
-@import "~@/assets/css/Signup/iconfont.css";
-@import "~@/assets/css/Login/page.css";
-@import "~@/assets/css/Login/iconfont.css";
-@import "~@/assets/css/Home/index.css";
+@import "~@/assets/css/index/Signup/page.css";
+@import "~@/assets/css/index/Signup/iconfont.css";
+@import "~@/assets/css/index/Login/page.css";
+@import "~@/assets/css/index/Login/iconfont.css";
+@import "~@/assets/css/index/Home/index.css";
+
+html, body {
+  height: 100%;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -44,4 +50,5 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
+
 </style>

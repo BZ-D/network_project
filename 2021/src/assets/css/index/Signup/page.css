@@ -1,8 +1,3 @@
-* {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-}
 
 .signup {
     display: flex;
@@ -10,7 +5,7 @@
     align-items: center;
     width: 100%;
     min-height: 100vh;
-    background-image: url(~@/assets/img/Signup/signup_bg.png);
+    background-image: url(~@/assets/img/index/Signup/signup_bg.png);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
