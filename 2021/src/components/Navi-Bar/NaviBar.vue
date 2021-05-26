@@ -6,6 +6,7 @@
                      :sel="selected" @navi-bar-item-click="changePage">
         <template #normalImg><img :src="item.normalImg" alt=""></template>
         <template #activeImg><img :src="item.activeImg" alt=""></template>
+        <template #mouseOnImg><img :src="item.mouseOnImg" alt=""></template>
       </navi_bar_item>
     </div>
   </div>
@@ -27,25 +28,29 @@ export default {
           title: '创建问卷',
           page: '',
           normalImg: require('@/assets/img/navi-bar/填写.png'),
-          activeImg: require('@/assets/img/navi-bar/填写 (1).png')
+          activeImg: require('@/assets/img/navi-bar/填写 (1).png'),
+          mouseOnImg: require('@/assets/img/navi-bar/填写mouseon.png')
         },
         {
           title: '查找问卷',
           page: 'searchQN',
           normalImg: require('@/assets/img/navi-bar/放大镜.png'),
-          activeImg: require('@/assets/img/navi-bar/放大镜 (1).png')
+          activeImg: require('@/assets/img/navi-bar/放大镜 (1).png'),
+          mouseOnImg: require('@/assets/img/navi-bar/放大镜mouseon.png')
         },
         {
           title: '管理问卷',
           page: 'manageQN',
           normalImg: require('@/assets/img/navi-bar/设置.png'),
-          activeImg: require('@/assets/img/navi-bar/设置 (1).png')
+          activeImg: require('@/assets/img/navi-bar/设置 (1).png'),
+          mouseOnImg: require('@/assets/img/navi-bar/设置mouseon.png')
         },
         {
           title: '个人中心',
           page: 'profile',
           normalImg: require('@/assets/img/navi-bar/个人.png'),
-          activeImg: require('@/assets/img/navi-bar/个人 (1).png')
+          activeImg: require('@/assets/img/navi-bar/个人 (1).png'),
+          mouseOnImg: require('@/assets/img/navi-bar/个人mouseon.png')
         }
       ]
     }

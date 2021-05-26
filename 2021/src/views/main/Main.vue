@@ -33,7 +33,7 @@ export default {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  overflow: hidden;
+  overflow: auto;
 }
 
 #navi-bar {
