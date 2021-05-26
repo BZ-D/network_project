@@ -1,6 +1,7 @@
 <template>
   <div id="create-detail">
     <!-- 最多20道题 -->
+    <new_question v-for="(item, index) in $store.state.questions" :key="index"></new_question>
     <span id="addBtn">
       <img v-show="!addBtnFocus" :src="require('@/assets/img/createQN/加号.png')" alt=""
            @mouseover="addBtnFocus=true" @mouseleave="addBtnFocus=false">
@@ -14,18 +15,20 @@
 
 <script>
 // 刷新页面时弹出“系统可能不会保存您的更改”
-// window.onbeforeunload = function(e) {
-//   const dialogText = 'Dialog text here';
-//   e.returnValue = dialogText;
-//   return dialogText;
-// };
+window.onbeforeunload = function(e) {
+  const dialogText = 'Dialog text here';
+  e.returnValue = dialogText;
+  return dialogText;
+};
 
 import add_question_box from '@/components/CreateQN/AddQuestionBox'
+import new_question from '@/components/CreateQN/NewQuestion'
 
 export default {
   name: "CreateQN_detail",
   components: {
-    add_question_box
+    add_question_box,
+    new_question
   },
   data() {
     return {

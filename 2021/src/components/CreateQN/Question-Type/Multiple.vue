@@ -1,5 +1,7 @@
 <template>
-
+  <div id="multiple-question">
+    multiple
+  </div>
 </template>
 
 <script>

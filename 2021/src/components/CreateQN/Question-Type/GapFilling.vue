@@ -1,5 +1,7 @@
 <template>
-
+  <div id="gap-filling-question">
+    gap-filling
+  </div>
 </template>
 
 <script>

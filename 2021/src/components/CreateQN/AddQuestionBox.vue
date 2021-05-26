@@ -39,10 +39,16 @@
         </span>
       </span><br>
 
-    <span :class="{add_active: addOneBtnFocus}" @click="addQuestion" class="add-one-btn"
-          @mouseover="addOneBtnFocus=true" @mouseleave="addOneBtnFocus=false">
+    <span class="btn-area">
+      <span :class="{cancel_active: cancelBtnFocus}" @click="cancelAdding" class="cancel-btn"
+            @mouseover="cancelBtnFocus=true" @mouseleave="cancelBtnFocus=false">
+          取 消
+      </span>
+      <span :class="{add_active: addOneBtnFocus}" @click="addQuestion" class="add-one-btn"
+            @mouseover="addOneBtnFocus=true" @mouseleave="addOneBtnFocus=false">
         添 加 题 目
       </span>
+    </span>
   </div>
 </template>
 
@@ -52,6 +58,7 @@ export default {
   data() {
     return {
       addOneBtnFocus: false,  // 用于选择题型窗口“添加题目”按钮的变化
+      cancelBtnFocus: false,  // 用于 “取消” 按钮的变化
       ifChooseType: true,
       questionBasicInfo: {
         title: '',  // 题干
@@ -77,6 +84,15 @@ export default {
       }
 
       this.$store.commit('addingOneQuestion', this.questionBasicInfo)
+      this.questionBasicInfo.title = ''
+      this.questionBasicInfo.type = ''
+      this.questionBasicInfo.must = ''
+    },
+    cancelAdding() {
+      this.$store.commit('cancelAdding')
+      this.questionBasicInfo.title = ''
+      this.questionBasicInfo.type = ''
+      this.questionBasicInfo.must = ''
     }
   }
 }
@@ -195,7 +211,19 @@ export default {
   cursor: default;
 }
 
-#choose-type-box .add-one-btn {
+#choose-type-box .btn-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: unset;
+}
+
+#choose-type-box .btn-area span[class="add-one-btn"] {
+  /*让取消和添加问题按钮之间有点距离*/
+  margin-left: 20px;
+}
+
+#choose-type-box .add-one-btn, .cancel-btn {
   /* 鼠标没有移到 添加题目 按钮上 */
   color: #fff;
   text-shadow: #000000 1px 1px 1px;
@@ -217,6 +245,11 @@ export default {
 }
 
 #choose-type-box .add_active {
+  /* 让鼠标放在添加题目按钮上时，两个按钮不会靠近，仍然保持20px */
+  margin-left: 20px;
+}
+
+#choose-type-box .add_active, .cancel_active {
   /* 鼠标移到 添加题目 按钮上 */
   background: linear-gradient(120deg, #9876de 0%, #5acd57 100%);
 }

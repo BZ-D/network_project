@@ -16,9 +16,11 @@ export default new Vuex.Store({
         // 选择题的选项，最多6项
       ]
     },
+    //  以上状态都存放目前正在添加的题目信息，成功添加后存到下面的questions数组中
 
-    questionAddedInfo: [
-      // 已添加的题目
+    questions: [
+      // 已添加的题目，里边存对象
+      // 对象内容：title, type, must, options(如果是选择题的话)
     ]
   },
   mutations: {
@@ -34,6 +36,17 @@ export default new Vuex.Store({
       state.questionAddingInfo.title = info.title
       state.questionAddingInfo.type = info.type
       state.questionAddingInfo.must = info.must
+      state.questions.push({
+        title: info.title,  // 目前正在添加的题目名称
+        type: info.type,  // 目前正在添加的题型
+        must: info.must,  // 目前正在添加的题目必答与否
+        options: [
+          // 选择题的选项，最多6项
+        ]
+      })
+    },
+    cancelAdding(state) {
+      state.isAdding = false
     },
     deleteOneQuestion(state) {
       state.numOfQuestions--
