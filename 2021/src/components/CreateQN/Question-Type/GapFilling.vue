@@ -5,7 +5,7 @@
       <h2> {{ $store.state.questions[index].title }} </h2>
       <!-- 删除题目按钮 -->
       <span :class="{active: mouseOnDelete}" class="delete-question-btn" @mouseover="mouseOnDelete=true"
-            @mouseleave="mouseOnDelete=false">
+            @mouseleave="mouseOnDelete=false" @click="deleteThisQuestion">
         删除题目
     </span>
     </div>
@@ -26,7 +26,7 @@ export default {
       mouseOnAdd: false,
       mouseOnSub: [],  // 用于每个选项后面的减号图标
       options: [],
-      must: this.$store.state.questionAddingInfo.must === 'must' ? '必答' : '选答', // 是否必答
+      must: this.$store.state.questions[this.index].must === 'must' ? '必答' : '选答', // 是否必答
     }
   },
   methods: {
@@ -50,6 +50,10 @@ export default {
         index: this.index,
         options: this.options
       })
+    },
+    deleteThisQuestion() {
+      this.$store.commit('deleteOneQuestion', this.index)
+      delete this
     }
   }
 }

@@ -18,11 +18,12 @@ import gap_filling from '@/components/CreateQN/Question-Type/GapFilling'
 export default {
   name: "NewQuestion",
   props: {
-    index: Number, // 当前问题的下表
+    index: Number, // 当前问题的下标
   },
-  data() {
-    return {
-      type: this.$store.state.questionAddingInfo.type
+  computed: {
+    //  又踩了一个坑，type必须是计算属性，这样才能做到删除题目时题目信息不会混乱，因为计算属性值是响应式的，data不行
+    type() {
+      return this.$store.state.questions[this.index].type
     }
   },
   components: {

@@ -51,8 +51,9 @@ export default new Vuex.Store({
       // 取消添加题目窗口
       state.isAdding = false
     },
-    deleteOneQuestion(state) {
+    deleteOneQuestion(state, index) {
       state.numOfQuestions--
+      state.questions.splice(index, 1)
     },
     updateCertainQuestionOptions(state, payload) {
       // 当某一道题的选项文本框失焦时，及时更新到store里
