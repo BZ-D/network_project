@@ -1,5 +1,8 @@
 <template>
   <div id="create-detail">
+    <div class="mask" v-show="$store.state.isAdding">
+      <!-- 作用是突出显示添加题目窗口 -->
+    </div>
     <!-- 最多20道题 -->
     <h2 class="qn-title">{{ $store.state.titleOfQN }}</h2>
     <new_question v-for="(item, index) in $store.state.questions" :key="index" :index="index"></new_question>
@@ -42,6 +45,25 @@ export default {
 </script>
 
 <style scoped>
+#choose-type-box {
+  z-index: 999;
+}
+
+#create-detail .mask {
+  z-index: 997;
+
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.49);
+}
+
 #create-detail .qn-title {
   text-align: center;
   margin-bottom: 20px;
