@@ -12,7 +12,7 @@
       </div>
       <div class="title-filling-box">
         <span class="title-filling-box-hint">请输入问卷标题</span><br><br>
-        <input type="text" v-model="title" class="title-filling-box-input"
+        <input type="text" v-model.trim="title" class="title-filling-box-input"
                placeholder="请在此处输入问卷标题，最多25个字">
         <!-- 注意一个细节：动态绑定的class要放到前面，固定class放到后面 -->
         <span :class="{beyond_limit: title.length>25 || title.length===0}"

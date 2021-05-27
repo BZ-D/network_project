@@ -3,7 +3,7 @@
     <!-- 选择题型的盒子，模拟弹窗，置于绝对位置屏幕正中间 -->
     <span class="question-name">
       <span class="question-name-fill-hint">题目名称</span><br>
-      <input type="text" v-model="questionBasicInfo.title" class="question-name-fill-input"
+      <input type="text" v-model.trim="questionBasicInfo.title" class="question-name-fill-input"
              placeholder="请在此处输入问卷标题，最多25个字">
       <span :class="{beyond_limit: questionBasicInfo.title.length>25 || questionBasicInfo.title.length===0}"
             class="title-length-count">  {{ questionBasicInfo.title.length }}/25</span>
@@ -151,7 +151,7 @@ export default {
 
 #choose-type-box .type-list, .answer-required {
   /* 盒子里的题目、题型、是否必答三个span左对齐，左边留30%的空隙（相对于父元素） */
-  margin-left: 30%;
+  margin: 0 auto;
 }
 
 #choose-type-box .question-name .question-name-fill-hint,

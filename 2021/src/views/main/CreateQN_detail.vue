@@ -6,7 +6,7 @@
     <!-- 最多20道题 -->
     <h2 class="qn-title">{{ $store.state.titleOfQN }}</h2>
     <new_question v-for="(item, index) in $store.state.questions" :key="index" :index="index"></new_question>
-    <span id="addBtn" v-show="!$store.state.isAdding">
+    <span id="addBtn" v-show="!$store.state.isAdding&&$store.state.numOfQuestions<=20">
       <img v-show="!addBtnFocus" :src="require('@/assets/img/createQN/加号.png')" alt=""
            @mouseover="addBtnFocus=true">
       <img v-show="addBtnFocus" :src="require('@/assets/img/createQN/加号 (1).png')" alt=""

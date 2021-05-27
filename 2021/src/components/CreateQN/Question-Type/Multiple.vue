@@ -13,7 +13,7 @@
           <img v-show="!mouseOnSub[i]" :src="require('@/assets/img/createQN/减号.png')"
                alt="" @mouseover="mouseOnSub.splice(i, 1, true)">
           <img v-show="mouseOnSub[i]" :src="require('@/assets/img/createQN/减号 (1).png')"
-               @click="delOneOption(i)"
+               @click="delOneOption(i);mouseOnSub.splice(i, 1, false)"
                alt="" @mouseleave="mouseOnSub.splice(i, 1, false)">
         </li>
       </ol>
@@ -26,6 +26,12 @@
              @click="addOneOption"
              alt="" @mouseleave="mouseOnAdd=false"><br>
         <span class="option-add-hint">点击按钮增加一个选项（最多添加6个）</span>
+      </span>
+
+      <!-- 删除题目按钮 -->
+      <span :class="{active: mouseOnDelete}" class="delete-question-btn" @mouseover="mouseOnDelete=true"
+            @mouseleave="mouseOnDelete=false">
+        删除题目
       </span>
     </div>
   </div>
@@ -41,6 +47,7 @@ export default {
     // 最多六个选项
     return {
       max_num_of_options: 6,
+      mouseOnDelete: false,  // 用于删除题目按钮变化
       mouseOnAdd: false,
       mouseOnSub: [],  // 用于每个选项后面的减号图标
       options: [],
@@ -126,12 +133,35 @@ export default {
 
 #multiple-question .options-show-area .options-list li input {
   border: 0;
-  width: 400px;
+  width: 420px;
   height: 40px;
   text-align: center;
   border-bottom: 1px solid #000;
   font-size: 20px;
 }
 
+#multiple-question .options-show-area .delete-question-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+
+  margin: 40px 5% 0 auto;
+
+  border: solid 2px red;
+  width: 70px;
+  height: 22px;
+
+  color: red;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+#multiple-question .options-show-area .active {
+  color: #fff;
+  background-color: #bd0101;
+  border: solid 2px #bd0101;
+}
 
 </style>

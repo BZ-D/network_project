@@ -5,7 +5,7 @@
         <h2>{{ index + 1 }}、(单选题) {{ $store.state.questions[index].title }} ({{ must }})</h2>
       </div>
 
-      <!-- 显示选项的地方 -->
+      <!-- 显示选项的地方，每个选项最多为20字 -->
       <ol type="A" class="options-list">
         <li v-for="(item, i) in options" :key="i">
           <input type="text" class="option-add-input" placeholder="请在此处输入选项内容" v-model="options[i]"
@@ -13,7 +13,7 @@
           <img v-show="!mouseOnSub[i]" :src="require('@/assets/img/createQN/减号.png')"
                alt="" @mouseover="mouseOnSub.splice(i, 1, true)">
           <img v-show="mouseOnSub[i]" :src="require('@/assets/img/createQN/减号 (1).png')"
-               @click="delOneOption(i)"
+               @click="delOneOption(i); mouseOnSub.splice(i, 1, false)"
                alt="" @mouseleave="mouseOnSub.splice(i, 1, false)">
         </li>
       </ol>
@@ -26,6 +26,12 @@
              @click="addOneOption"
              alt="" @mouseleave="mouseOnAdd=false"><br>
         <span class="option-add-hint">点击按钮增加一个选项（最多添加6个）</span>
+      </span>
+
+      <!-- 删除题目按钮 -->
+      <span :class="{active: mouseOnDelete}" class="delete-question-btn" @mouseover="mouseOnDelete=true"
+            @mouseleave="mouseOnDelete=false">
+        删除题目
       </span>
     </div>
   </div>
@@ -43,6 +49,7 @@ export default {
       max_num_of_options: 6,
       mouseOnAdd: false,
       mouseOnSub: [],  // 用于每个选项后面的减号图标
+      mouseOnDelete: false,  // 用于删除题目按钮变化
       options: [],
       must: this.$store.state.questionAddingInfo.must === 'must' ? '必答' : '选答', // 是否必答
     }
@@ -63,7 +70,7 @@ export default {
       })
     },
     updateVuexOptions() {
-      // 当选项输入框失焦时，及时更新store.state中对应选择题的options属性
+      // 当选项输入框失焦时，先检查选项文字长度，符合限制后及时更新store.state中对应选择题的options属性
       this.$store.commit('updateCertainQuestionOptions', {
         index: this.index,
         options: this.options
@@ -126,12 +133,35 @@ export default {
 
 #single-question .options-show-area .options-list li input {
   border: 0;
-  width: 400px;
+  width: 420px;
   height: 40px;
   text-align: center;
   border-bottom: 1px solid #000;
   font-size: 20px;
 }
 
+#single-question .options-show-area .delete-question-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+
+  margin: 40px 5% 0 auto;
+
+  border: solid 2px red;
+  width: 70px;
+  height: 22px;
+
+  color: red;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+#single-question .options-show-area .active {
+  color: #fff;
+  background-color: #bd0101;
+  border: solid 2px #bd0101;
+}
 
 </style>
