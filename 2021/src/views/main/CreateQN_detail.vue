@@ -1,12 +1,13 @@
 <template>
   <div id="create-detail">
     <!-- 最多20道题 -->
-    <new_question v-for="(item, index) in $store.state.questions" :key="index"></new_question>
-    <span id="addBtn">
+    <h2 class="qn-title">{{ $store.state.titleOfQN }}</h2>
+    <new_question v-for="(item, index) in $store.state.questions" :key="index" :index="index"></new_question>
+    <span id="addBtn" v-show="!$store.state.isAdding">
       <img v-show="!addBtnFocus" :src="require('@/assets/img/createQN/加号.png')" alt=""
-           @mouseover="addBtnFocus=true" @mouseleave="addBtnFocus=false">
+           @mouseover="addBtnFocus=true">
       <img v-show="addBtnFocus" :src="require('@/assets/img/createQN/加号 (1).png')" alt=""
-           @mouseover="addBtnFocus=true" @mouseleave="addBtnFocus=false" @click="$store.commit('toAdding')"><br><br>
+           @mouseleave="addBtnFocus=false" @click="$store.commit('toAdding')"><br><br>
       <span id="problem-hint">点击此处添加一道题</span><br><br>
     </span>
     <add_question_box v-show="$store.state.isAdding"></add_question_box>
@@ -15,7 +16,7 @@
 
 <script>
 // 刷新页面时弹出“系统可能不会保存您的更改”
-window.onbeforeunload = function(e) {
+window.onbeforeunload = function (e) {
   const dialogText = 'Dialog text here';
   e.returnValue = dialogText;
   return dialogText;
@@ -35,13 +36,27 @@ export default {
       addBtnFocus: false,  // 用于圆形蓝色加号的变化
     }
   },
-  methods: {
-  }
+  methods: {}
 
 }
 </script>
 
 <style scoped>
+#create-detail .qn-title {
+  text-align: center;
+  margin-bottom: 20px;
+  width: 650px;
+  height: 40px;
+
+  color: #fff;
+  text-shadow: 1px 1px 1px #000;
+  font-size: 25px;
+  font-family: "STZhongsong", "STHeiti", serif;
+
+
+  background: rgba(0, 0, 0, .3);
+}
+
 #addBtn img {
   cursor: pointer;
 }

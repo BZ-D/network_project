@@ -114,10 +114,11 @@ export default {
   align-items: center;
   justify-content: center;
 
-  width: 650px;
+  width: 550px;
   border-radius: 25px;
+  border: solid 2px #a2eafd;
   height: 300px;
-  background: rgba(0, 0, 0, .6);
+  background: #e2f8fc;
 }
 
 #choose-type-box * {
@@ -157,9 +158,10 @@ export default {
 .type-list .question-type-hint,
 .answer-required .answer-required-hint {
   font-size: 20px;
-  color: #fff;
-  text-shadow: 1px 1px 1px #000;
+  color: #000000;
+  text-shadow: 1px 1px 1px #ffffff;
   cursor: default;
+  font-weight: bold;
 }
 
 #choose-type-box .question-name .question-name-fill-hint {
@@ -169,9 +171,9 @@ export default {
 #choose-type-box .question-name .question-name-fill-input {
   /*题目填写框样式调整，留底下白线*/
   border: 0;
-  border-bottom: 1px solid #fff;
+  border-bottom: 1px solid #000000;
   background-color: #ffffff00;
-  color: #fff;
+  color: #262626;
   font-size: 15px;
 
   width: 60%;
@@ -179,7 +181,6 @@ export default {
 
   margin-right: unset;
   text-align: center;
-  font-weight: lighter;
 }
 
 #choose-type-box .type-list .question-type-choose span {
@@ -206,8 +207,7 @@ export default {
 #choose-type-box .type-list .question-type-choose .type,
 .answer-required .required-type {
   font-size: 15px;
-  color: #fff;
-  text-shadow: 1px 1px 1px #000;
+  color: #000000;
   cursor: default;
 }
 
@@ -225,8 +225,8 @@ export default {
 
 #choose-type-box .add-one-btn, .cancel-btn {
   /* 鼠标没有移到 添加题目 按钮上 */
-  color: #fff;
-  text-shadow: #000000 1px 1px 1px;
+  color: #3e3e3e;
+  font-weight: bold;
 
   display: flex;
   align-items: center;
@@ -240,7 +240,7 @@ export default {
   width: 145px;
   height: 38px;
   border-radius: 25px;
-  background: linear-gradient(120deg, #9c7ae3 0%, #7eec7d 100%);
+  background: linear-gradient(90deg, #ffc9e6 0%, #a9fdee 100%);
   font-size: 17px;
 }
 
@@ -251,7 +251,7 @@ export default {
 
 #choose-type-box .add_active, .cancel_active {
   /* 鼠标移到 添加题目 按钮上 */
-  background: linear-gradient(120deg, #9876de 0%, #5acd57 100%);
+  background: linear-gradient(90deg, #ffacd8 0%, #85fff0 100%);
 }
 
 .beyond_limit {
