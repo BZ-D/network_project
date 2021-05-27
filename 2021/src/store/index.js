@@ -44,7 +44,7 @@ export default new Vuex.Store({
         title: info.title,  // 目前正在添加的题目名称
         type: info.type,  // 目前正在添加的题型
         must: info.must,  // 目前正在添加的题目必答与否
-        options: []
+        options: [],
       })
     },
     cancelAdding(state) {

@@ -176,7 +176,7 @@ export default {
   color: #262626;
   font-size: 15px;
 
-  width: 60%;
+  width: 80%;
   height: 30px;
 
   margin-right: unset;

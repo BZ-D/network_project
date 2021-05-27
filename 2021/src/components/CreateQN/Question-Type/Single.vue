@@ -2,8 +2,7 @@
   <div id="single-question">
     <div class="options-show-area">
       <div class="question-title-show-area">
-        <h2>{{ index + 1 }}、{{ $store.state.questions[index].title }}
-          （{{ must }}）</h2>
+        <h2>{{ index + 1 }}、(单选题) {{ $store.state.questions[index].title }} ({{ must }})</h2>
       </div>
 
       <!-- 显示选项的地方 -->
@@ -20,7 +19,7 @@
       </ol>
 
 
-      <span class="add-option-btn" v-if="num_of_options_now<max_num_of_options">
+      <span class="add-option-btn" v-if="options.length<max_num_of_options">
         <img v-show="!mouseOnAdd" :src="require('@/assets/img/createQN/加号.png')"
              alt="" @mouseover="mouseOnAdd=true">
         <img v-show="mouseOnAdd" :src="require('@/assets/img/createQN/加号 (1).png')"
@@ -42,22 +41,19 @@ export default {
     // 最多六个选项
     return {
       max_num_of_options: 6,
-      num_of_options_now: 0,  // 目前选项个数
       mouseOnAdd: false,
       mouseOnSub: [],  // 用于每个选项后面的减号图标
       options: [],
-      must: this.$store.state.questionAddingInfo.must === 'must' ? '必答' : '选答' // 是否必答
+      must: this.$store.state.questionAddingInfo.must === 'must' ? '必答' : '选答', // 是否必答
     }
   },
   methods: {
     addOneOption() {
-      this.num_of_options_now++
       this.options.push('')
       this.mouseOnSub.push(false)
     },
     delOneOption(index) {
       // 点击某个选项后面的减号时，删去该选项
-      this.num_of_options_now--
       this.options.splice(index, 1)
 
       // 及时更新store
