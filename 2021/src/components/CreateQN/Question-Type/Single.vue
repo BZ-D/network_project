@@ -10,10 +10,10 @@
         <h2>{{ index + 1 }}、(单选题) {{ $store.state.questions[index].title }} ({{ must }})</h2>
       </div>
 
-      <!-- 显示选项的地方，每个选项最多为20字 -->
+      <!-- 显示选项的地方，每个选项最多为25字 -->
       <ol type="A" class="options-list">
         <li v-for="(item, i) in options" :key="i">
-          <input type="text" class="option-add-input" placeholder="请在此处输入选项内容" v-model="options[i]"
+          <input type="text" :class="{beyond_limit: item.length>20}" class="option-add-input" placeholder="请在此处输入选项内容" v-model="options[i]"
                  @blur="updateVuexOptions">
           <img v-show="!mouseOnSub[i]" :src="require('@/assets/img/createQN/减号.png')"
                alt="" @mouseover="mouseOnSub.splice(i, 1, true)">
@@ -83,6 +83,12 @@ export default {
     addOneOption() {
       this.options.push('')
       this.mouseOnSub.push(false)
+
+      // 及时更新store
+      this.$store.commit('updateCertainQuestionOptions', {
+        index: this.index,
+        options: this.options
+      })
     },
     delOneOption(index) {
       // 点击某个选项后面的减号时，删去该选项
@@ -242,6 +248,10 @@ export default {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+#single-question .options-show-area .options-list .beyond_limit {
+  color: red;
 }
 
 #single-question .options-show-area .options-list li {

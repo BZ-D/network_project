@@ -106,11 +106,44 @@ export default {
   },
   methods: {
     discardThisQN() {
+      // 删除所有题目，删除问卷标题，回到输入问卷标题页面main
       this.$store.commit('deleteQN_when_creating')
       this.$router.push('/main')
     },
     releaseThisQN() {
+      // 先检查每一道题，标准为：
+      // 单选：选项个数大于0且小于等于6，每个创建的选项内容长度应大于0字且小于等于25字
+      // 多选：同单选
+      // 填空：无需检查
+      for(let i = 0; i < this.$store.state.questions.length; ++i) {
+        const question = this.$store.state.questions[i]
+        //  question格式: 对象
+        // 对象内容：title, type, must, options(如果是选择题, options要有元素)
+        if (question.type === 'single' || question.type === 'multiple') {
+          if (question.options.length === 0) {
+            // 某个选择题没有选项
+            window.alert('您的第' + (i + 1) + '道题没有选项，请进行处理！')
+            this.isReleasingQN = false
+            return
+          }
+          for(let j = 0; j < question.options.length; ++j) {
+            const option = question.options[j]
+            // 某个选项长度不符合要求
+            if (option.length === 0) {
+              window.alert('您的第' + (i + 1) + '道题的第' + (j + 1) + '个选项为空，请进行处理！')
+              this.isReleasingQN = false
+              return
+            }
+            if (option.length > 25) {
+              window.alert('您的第' + (i + 1) + '道题的第' + (j + 1) + '个选项超过了25个字，请进行处理！')
+              this.isReleasingQN = false
+              return
+            }
+          }
+        }
+      }
 
+      // TODO: 检查结束，每个问题都符合要求后，下面要把问卷传到数据库
     },
     draftThisQN() {
 
