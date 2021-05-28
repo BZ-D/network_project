@@ -58,7 +58,17 @@ export default {
   methods: {
     // 注意：methods里不要写箭头函数
     changePage(page) {
-      this.selected = page
+      if (this.$route.name === '创建问卷') {
+        const leave = confirm('您确定要离开吗？如果您现在离开，您正在创建的问卷将被自动丢弃！要临时保存问卷，请点击下方的“存为草稿”按钮。')
+        if (leave === true) {
+          this.$store.commit('deleteQN_when_creating')
+          this.selected = page
+          this.$router.push('/main/' + this.selected)
+        }
+      } else {
+        this.selected = page
+        this.$router.push('/main/' + this.selected)
+      }
     }
   }
 }

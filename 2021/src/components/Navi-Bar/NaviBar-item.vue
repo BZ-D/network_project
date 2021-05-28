@@ -50,7 +50,6 @@ export default {
   methods: {
     changePage() {
       this.$emit('navi-bar-item-click', this.page)
-      this.$router.push('/main/' + this.page)
     }
   }
 }
