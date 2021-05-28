@@ -19,7 +19,8 @@
               class="title-length-count">  {{ title.length }}</span>/25
       </div>
       <div id="creat-btn" @click="toCreateDetail" :class="{active: isBtnActive}"
-           @mouseover="isBtnActive=true" @mouseleave="isBtnActive=false">立 即 创 建</div>
+           @mouseover="isBtnActive=true" @mouseleave="isBtnActive=false">立 即 创 建
+      </div>
     </div>
     <!-- 如果正确填写了问卷标题并点击立即创建，进入detail具体题目页面 -->
     <router-view v-if="gotoDetail"></router-view>
@@ -31,7 +32,7 @@
 import detail from '@/views/main/CreateQN_detail'
 
 // 刷新页面时弹出“系统可能不会保存您的更改”
-window.onbeforeunload = function(e) {
+window.onbeforeunload = function (e) {
   const dialogText = 'Dialog text here';
   e.returnValue = dialogText;
   return dialogText;
@@ -42,10 +43,19 @@ export default {
   components: {
     detail
   },
+  computed: {
+    gotoDetail: {
+      get() {
+        return this.$store.state.gotoCreateDetail
+      },
+      set(bool) {
+        this.$store.commit('changeGotoCreatingDetail', bool)
+      }
+    }
+  },
   data() {
     return {
       title: '',
-      gotoDetail: false,
       isBtnActive: false
     }
   },
@@ -59,9 +69,10 @@ export default {
         window.alert('问卷标题最多为25个字！')
         return
       }
-      this.gotoDetail = true
+      this.$store.commit('changeGotoCreatingDetail', true)
       this.$store.commit('fillTitle', this.title)
       this.$router.push('/main/detail')
+      this.title = ''
     }
   }
 }
