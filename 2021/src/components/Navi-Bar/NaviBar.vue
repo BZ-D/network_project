@@ -20,9 +20,18 @@ export default {
   components: {
     navi_bar_item
   },
+  computed: {
+    selected: {
+      get() {
+        return this.$store.state.selectedPage
+      },
+      set(page) {
+        this.$store.commit('changePage', page)
+      }
+    }
+  },
   data() {
     return {
-      selected: '',
       navi_bar_items: [
         {
           title: '创建问卷',

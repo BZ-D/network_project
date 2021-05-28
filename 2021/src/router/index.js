@@ -49,7 +49,8 @@ const routes = [
         name: '个人中心',
         component: () => import('@/views/main/Profile'),
         meta: {
-          keepAlive: true
+          keepAlive: true,
+          page: 'profile'
         }
       },
       {
@@ -57,13 +58,17 @@ const routes = [
         name: 'NJU问卷系统',
         component: () => import('@/views/main/CreateQN'),
         meta: {
-          keepAlive: true
+          keepAlive: true,
+          page: ''
         },
         children: [
           {
             path: 'detail',
             name: '创建问卷',
-            component: () => import('@/views/main/CreateQN_detail')
+            component: () => import('@/views/main/CreateQN_detail'),
+            meta: {
+              page: ''
+            }
           }
         ]
       },
@@ -72,7 +77,8 @@ const routes = [
         name: '查找问卷',
         component: () => import('@/views/main/SearchQN'),
         meta: {
-          keepAlive: true
+          keepAlive: true,
+          page: 'searchQN'
         }
       },
       {
@@ -80,7 +86,8 @@ const routes = [
         name: '管理问卷',
         component: () => import('@/views/main/ManageQN'),
         meta: {
-          keepAlive: true
+          keepAlive: true,
+          page: 'manageQN'
         }
       }
     ]
