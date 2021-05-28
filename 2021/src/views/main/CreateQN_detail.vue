@@ -1,11 +1,21 @@
 <template>
   <div id="create-detail">
+
     <div class="mask" v-show="$store.state.isAdding">
       <!-- 作用是突出显示添加题目窗口 -->
     </div>
+
     <!-- 最多20道题 -->
     <h2 class="qn-title">{{ $store.state.titleOfQN }}</h2>
     <new_question v-for="(item, index) in $store.state.questions" :key="index" :index="index"></new_question>
+
+    <div class="cancel-and-confirm-area">
+      <!-- 在所有题目的最下方，添加题目按钮的上方显示 -->
+      <span class="cancel-questionnaire-btn"></span>
+      <span class="draft-questionnaire-btn"></span>
+      <span class="confirm-questionnaire-btn"></span>
+    </div>
+
     <span id="addBtn" v-show="!$store.state.isAdding&&$store.state.numOfQuestions<20">
       <img v-show="!addBtnFocus" :src="require('@/assets/img/createQN/加号.png')" alt=""
            @mouseover="addBtnFocus=true">
@@ -13,6 +23,8 @@
            @mouseleave="addBtnFocus=false" @click="$store.commit('toAdding')"><br><br>
       <span id="problem-hint">点击此处添加一道题</span><br><br>
     </span>
+
+
     <add_question_box v-show="$store.state.isAdding"></add_question_box>
   </div>
 </template>
