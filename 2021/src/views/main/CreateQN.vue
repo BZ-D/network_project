@@ -31,13 +31,6 @@
 <script>
 import detail from '@/views/main/CreateQN_detail'
 
-// 刷新页面时弹出“系统可能不会保存您的更改”
-window.onbeforeunload = function (e) {
-  const dialogText = 'Dialog text here';
-  e.returnValue = dialogText;
-  return dialogText;
-};
-
 export default {
   name: "CreateQN",
   components: {

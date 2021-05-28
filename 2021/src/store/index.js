@@ -1,9 +1,11 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+// import {sync} from "vuex-router-sync";
+// import router from '@/router'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+const store =  new Vuex.Store({
   state: {
     selectedPage: '', // 目前所在页面，即对应navbar的项目
 
@@ -27,7 +29,7 @@ export default new Vuex.Store({
     questions: [
       // 已添加的题目，里边存对象
       // 对象内容：title, type, must, options(如果是选择题的话)
-    ]
+    ],
   },
   mutations: {
     changePage(state, page) {
@@ -87,3 +89,5 @@ export default new Vuex.Store({
   actions: {},
   modules: {}
 })
+
+export default store

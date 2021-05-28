@@ -67,7 +67,6 @@
 
 <script>
 // 刷新页面时弹出“系统可能不会保存您的更改”
-import router from "@/router";
 
 window.onbeforeunload = function (e) {
   const dialogText = 'Dialog text here';
@@ -143,10 +142,27 @@ export default {
         }
       }
 
-      // TODO: 检查结束，每个问题都符合要求后，下面要把问卷传到数据库
+      // TODO: 检查结束，每个问题都符合要求后，下面要把问卷传到数据库，数据库存储完毕后，再将该问卷信息从$store中删除
     },
     draftThisQN() {
+      // 确定保存为草稿后，只需要检查是否有超过选项字数限制的内容，不必理会选项为空和没有选项的情况
+      for(let i = 0; i < this.$store.state.questions.length; ++i) {
+        const question = this.$store.state.questions[i]
+        //  question格式: 对象
+        // 对象内容：title, type, must, options[](如果是选择题, options要有元素)
+        if (question.type === 'single' || question.type === 'multiple') {
+          for(let j = 0; j < question.options.length; ++j) {
+            const option = question.options[j]
+            if (option.length > 25) {
+              window.alert('您的第' + (i + 1) + '道题的第' + (j + 1) + '个选项超过了25个字，请进行处理！')
+              this.isReleasingQN = false
+              return
+            }
+          }
+        }
+      }
 
+      // TODO: 检查结束，下面要把问卷草稿传到数据库，数据库存储完毕后，再将该问卷信息从$store中删除
     }
   }
 
