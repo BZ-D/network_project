@@ -110,6 +110,10 @@ export default {
 </script>
 
 <style scoped>
+#single-question {
+  margin: 0 auto;
+}
+
 #single-question .mask {
   z-index: 997;
 
@@ -206,7 +210,7 @@ export default {
   border-radius: 25px;
   background: #fff;
 
-  margin-bottom: 20px;
+  margin: 0 auto 20px;
   padding-bottom: 20px;
 }
 

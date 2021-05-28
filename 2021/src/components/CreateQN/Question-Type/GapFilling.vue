@@ -85,6 +85,11 @@ export default {
 </script>
 
 <style scoped>
+
+#gap-filling-question {
+  margin: 0 auto;
+}
+
 #gap-filling-question .mask {
   z-index: 997;
 
@@ -182,7 +187,7 @@ export default {
   background: #fff;
 
   padding-top: 20px;
-  margin-bottom: 20px;
+  margin: 0 auto 20px;
   padding-bottom: 20px;
 }
 

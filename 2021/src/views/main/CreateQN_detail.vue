@@ -9,13 +9,6 @@
     <h2 class="qn-title">{{ $store.state.titleOfQN }}</h2>
     <new_question v-for="(item, index) in $store.state.questions" :key="index" :index="index"></new_question>
 
-    <div class="cancel-and-confirm-area">
-      <!-- 在所有题目的最下方，添加题目按钮的上方显示 -->
-      <span class="cancel-questionnaire-btn"></span>
-      <span class="draft-questionnaire-btn"></span>
-      <span class="confirm-questionnaire-btn"></span>
-    </div>
-
     <span id="addBtn" v-show="!$store.state.isAdding&&$store.state.numOfQuestions<20">
       <img v-show="!addBtnFocus" :src="require('@/assets/img/createQN/加号.png')" alt=""
            @mouseover="addBtnFocus=true">
@@ -24,6 +17,16 @@
       <span id="problem-hint">点击此处添加一道题</span><br><br>
     </span>
 
+
+    <div class="cancel-and-confirm-area">
+      <!-- 在所有题目的最下方，添加题目按钮的上方显示 -->
+      <span :class="{active: isCancelQNBtnActive}" class="cancel-questionnaire-btn"
+            @mouseover="isCancelQNBtnActive=true" @mouseleave="isCancelQNBtnActive=false">丢 弃 问 卷</span>
+      <span :class="{active: isDraftQNBtnActive}" class="draft-questionnaire-btn" @mouseover="isDraftQNBtnActive=true"
+            @mouseleave="isDraftQNBtnActive=false">存 为 草 稿</span>
+      <span :class="{active: isConfirmQNBtnActive}" class="confirm-questionnaire-btn"
+            @mouseover="isConfirmQNBtnActive=true" @mouseleave="isConfirmQNBtnActive=false">发 布 问 卷</span>
+    </div>
 
     <add_question_box v-show="$store.state.isAdding"></add_question_box>
   </div>
@@ -49,6 +52,9 @@ export default {
   data() {
     return {
       addBtnFocus: false,  // 用于圆形蓝色加号的变化
+      isCancelQNBtnActive: false,
+      isDraftQNBtnActive: false,
+      isConfirmQNBtnActive: false
     }
   },
   methods: {}
@@ -78,7 +84,7 @@ export default {
 
 #create-detail .qn-title {
   text-align: center;
-  margin-bottom: 20px;
+  margin: 0 auto 20px;
   width: 650px;
   height: 40px;
 
@@ -91,6 +97,7 @@ export default {
   background: rgba(0, 0, 0, .3);
 }
 
+
 #addBtn img {
   cursor: pointer;
 }
@@ -99,11 +106,49 @@ export default {
   margin-bottom: 10px;
   font-weight: bold;
   font-size: 20px;
+  cursor: default;
 }
 
 #addBtn img {
   width: 60px;
   height: 60px;
+}
+
+#create-detail .cancel-and-confirm-area {
+  width: 800px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+#create-detail .cancel-and-confirm-area span {
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 20px;
+  color: #fff;
+  text-shadow: 1px 1px 1px #000;
+
+  width: 150px;
+  height: 40px;
+
+  border-radius: 25px;
+  background: linear-gradient(120deg, #98aee5 0%, #988dec 100%);
+
+}
+
+#create-detail .cancel-and-confirm-area .draft-questionnaire-btn,
+#create-detail .cancel-and-confirm-area .confirm-questionnaire-btn {
+  margin-left: 20px;
+}
+
+#create-detail .cancel-and-confirm-area .active {
+  background: linear-gradient(120deg, #809ce3 0%, #8074ec 100%);
 }
 
 </style>
