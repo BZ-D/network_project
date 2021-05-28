@@ -7,8 +7,6 @@ Vue.use(Vuex)
 
 const store =  new Vuex.Store({
   state: {
-    selectedPage: '', // 目前所在页面，即对应navbar的项目
-
     maxOfQuestions: 20,  // 题目最大数量
     titleOfQN: '',  // 现在正在创建问卷的题目
     gotoCreateDetail: false,  // 是否正确输入了问卷题目，为true时，跳转到题目添加页面
@@ -32,10 +30,6 @@ const store =  new Vuex.Store({
     ],
   },
   mutations: {
-    changePage(state, page) {
-      // 用于导航栏跳转时页面的转化
-      state.selectedPage = page
-    },
     fillTitle(state, QN_title) {
       state.titleOfQN = QN_title
     },
