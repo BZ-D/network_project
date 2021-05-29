@@ -5,6 +5,14 @@
       <!-- 作用是突出显示添加题目窗口，让其他元素变为灰色不可选，当正在添加题目、正在丢弃问卷、发布问卷、保存草稿时 -->
     </div>
 
+    <div class="to-up">
+      <!-- 火箭图标，用于回到最上方 -->
+      <img v-show="!mouseOnRocket" :src="require('@/assets/img/createQN/火箭静止.png')" @mouseover="mouseOnRocket=true"
+           alt="">
+      <img v-show="mouseOnRocket" :src="require('@/assets/img/createQN/火箭移动.gif')" @mouseleave="mouseOnRocket=false"
+           @click="to_top" alt="">
+    </div>
+
     <!-- 最多20道题 -->
     <h2 class="qn-title">{{ $store.state.titleOfQN }}</h2>
     <new_question v-for="(item, index) in $store.state.questions" :key="index" :index="index"></new_question>
@@ -74,6 +82,7 @@ window.onbeforeunload = function (e) {
   return dialogText;
 };
 
+
 import add_question_box from '@/components/CreateQN/AddQuestionBox'
 import new_question from '@/components/CreateQN/NewQuestion'
 
@@ -101,9 +110,26 @@ export default {
 
       mouseOnCancelRelease: false,// 发布问卷窗口取消按钮变化
       mouseOnConfirmRelease: false,// 丢弃问卷窗口确定按钮变化
+
+      mouseOnRocket: false, // 回到顶部火箭的变化
     }
   },
   methods: {
+    to_top() {
+      // 点击小火箭后回到页面顶部
+      let timer = null;
+      cancelAnimationFrame(timer);
+      timer = requestAnimationFrame(function fn() {
+        const oTop = document.body.scrollTop || document.documentElement.scrollTop;
+        if (oTop > 0) {
+          scrollBy(0, -30);
+          timer = requestAnimationFrame(fn);
+        } else {
+          cancelAnimationFrame(timer);
+        }
+      });
+
+    },
     discardThisQN() {
       // 删除所有题目，删除问卷标题，回到输入问卷标题页面main
       this.$store.commit('deleteQN_when_creating')
@@ -122,7 +148,7 @@ export default {
         return
       }
 
-      for(let i = 0; i < this.$store.state.questions.length; ++i) {
+      for (let i = 0; i < this.$store.state.questions.length; ++i) {
         const question = this.$store.state.questions[i]
         //  question格式: 对象
         // 对象内容：title, type, must, options(如果是选择题, options要有元素)
@@ -133,7 +159,7 @@ export default {
             this.isReleasingQN = false
             return
           }
-          for(let j = 0; j < question.options.length; ++j) {
+          for (let j = 0; j < question.options.length; ++j) {
             const option = question.options[j]
             // 某个选项长度不符合要求
             if (option.length === 0) {
@@ -154,12 +180,12 @@ export default {
     },
     draftThisQN() {
       // 确定保存为草稿后，只需要检查是否有超过选项字数限制的内容，不必理会选项为空和没有选项的情况
-      for(let i = 0; i < this.$store.state.questions.length; ++i) {
+      for (let i = 0; i < this.$store.state.questions.length; ++i) {
         const question = this.$store.state.questions[i]
         //  question格式: 对象
         // 对象内容：title, type, must, options[](如果是选择题, options要有元素)
         if (question.type === 'single' || question.type === 'multiple') {
-          for(let j = 0; j < question.options.length; ++j) {
+          for (let j = 0; j < question.options.length; ++j) {
             const option = question.options[j]
             if (option.length > 25) {
               window.alert('您的第' + (i + 1) + '道题的第' + (j + 1) + '个选项超过了25个字，请进行处理！')
@@ -195,6 +221,18 @@ export default {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.49);
+}
+
+#create-detail .to-up {
+  position: fixed;
+  right: 15%;
+  bottom: 10%;
+}
+
+#create-detail .to-up img {
+  width: 95px;
+  height: 101px;
+  cursor: pointer;
 }
 
 #create-detail .confirm-deleting-this-qn,
