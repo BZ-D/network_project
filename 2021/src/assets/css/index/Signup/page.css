@@ -1,4 +1,3 @@
-
 .signup {
     display: flex;
     justify-content: center;
@@ -31,6 +30,7 @@
     justify-content: center;
     align-content: space-around;
     flex-wrap: wrap;
+
     width: 600px;
     height: 400px;
     background-color: rgba(0, 0, 0, .5);
@@ -40,6 +40,9 @@
 }
 
 .signup-box h1 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+
     width: 100%;
     display: flex;
     justify-content: center;
@@ -80,6 +83,9 @@
     background-color: #ffffff00;
     color: #fff;
     margin-top: 20px;
+
+    width: 200px;
+    text-align: center;
 }
 
 .signup-box .input-box .input-btn {

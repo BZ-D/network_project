@@ -5,7 +5,11 @@
       <div class="input-box">
         <div class="input-text">
           <span class="iconfont icon-mine"></span>
-          <input type="text" placeholder="用户名">
+          <input type="text" placeholder="账号">
+        </div>
+        <div class="input-text">
+          <span class="iconfont icon-nickname"></span>
+          <input type="text" placeholder="用户昵称">
         </div>
         <div class="input-text">
           <span class="iconfont icon-lock"></span>

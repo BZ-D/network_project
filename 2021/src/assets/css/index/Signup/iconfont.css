@@ -9,6 +9,12 @@
     background-size: cover;
 }
 
+.icon-nickname {
+    background-image: url(~@/assets/img/index/Signup/笔.png);
+    background-repeat: no-repeat;
+    background-size: 20px 20px;
+}
+
 .icon-lock {
     background-image: url(~@/assets/img/index/Signup/密码.png);
     background-repeat: no-repeat;
