@@ -120,6 +120,10 @@
     font-size: 17px;
 }
 
+.signup-box .input-box .log-in .login_active {
+    text-decoration: underline;
+}
+
 .signup-box .input-box .log-in a {
     color: #26afbb;
     text-decoration: none;
