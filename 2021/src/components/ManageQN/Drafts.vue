@@ -1,5 +1,7 @@
 <template>
-
+  <div id="draft">
+    draft
+  </div>
 </template>
 
 <script>

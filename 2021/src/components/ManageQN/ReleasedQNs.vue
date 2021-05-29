@@ -1,5 +1,7 @@
 <template>
-
+  <div id="released">
+    released
+  </div>
 </template>
 
 <script>

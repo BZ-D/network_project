@@ -38,6 +38,9 @@ export default {
     }
   }
 }
+
+// TODO: 点击注册按钮后，核实账号密码是否为空，账号、密码是否符合规范、两次密码是否一致
+
 </script>
 <style scoped>
 

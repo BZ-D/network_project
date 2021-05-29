@@ -1,5 +1,7 @@
 <template>
-
+  <div id="filled">
+    filled
+  </div>
 </template>
 
 <script>

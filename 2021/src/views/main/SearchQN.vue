@@ -99,6 +99,9 @@ export default {
   width: 100%;
   height: 100%;
   font-size: 13px;
+
+  border: 0;
+  border-right: 1px solid #9c9c9c;
 }
 
 #search .search-box .search-icon {

@@ -43,14 +43,14 @@ export default {
         },
         {
           title: '查找问卷',
-          page: 'searchQN',
+          page: 'search',
           normalImg: require('@/assets/img/navi-bar/放大镜.png'),
           activeImg: require('@/assets/img/navi-bar/放大镜 (1).png'),
           mouseOnImg: require('@/assets/img/navi-bar/放大镜mouseon.png')
         },
         {
           title: '管理问卷',
-          page: 'manageQN',
+          page: 'manage',
           normalImg: require('@/assets/img/navi-bar/设置.png'),
           activeImg: require('@/assets/img/navi-bar/设置 (1).png'),
           mouseOnImg: require('@/assets/img/navi-bar/设置mouseon.png')

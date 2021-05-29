@@ -110,10 +110,18 @@ export default {
       this.$router.push('/main')
     },
     releaseThisQN() {
-      // 先检查每一道题，标准为：
+      // 先检查有没有题目
+      // 再检查每一道题，标准为：
       // 单选：选项个数大于0且小于等于6，每个创建的选项内容长度应大于0字且小于等于25字
       // 多选：同单选
       // 填空：无需检查
+
+      if (this.$store.state.numOfQuestions === 0) {
+        window.alert('请至少添加一道题目！')
+        this.isReleasingQN = false
+        return
+      }
+
       for(let i = 0; i < this.$store.state.questions.length; ++i) {
         const question = this.$store.state.questions[i]
         //  question格式: 对象

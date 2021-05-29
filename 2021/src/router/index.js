@@ -73,22 +73,52 @@ const routes = [
         ]
       },
       {
-        path: 'searchQN',
+        path: 'search',
         name: '查找问卷',
         component: () => import('@/views/main/SearchQN'),
         meta: {
           keepAlive: true,
-          page: 'searchQN'
+          page: 'search'
         }
       },
       {
-        path: 'manageQN',
+        path: 'manage',
         name: '管理问卷',
         component: () => import('@/views/main/ManageQN'),
         meta: {
           keepAlive: true,
-          page: 'manageQN'
-        }
+          page: 'manage',
+          branch: ''
+        },
+        children: [
+          {
+            path: 'filled',
+            name: '已填写的问卷',
+            component: () => import('@/components/ManageQN/FilledQNs'),
+            meta: {
+              page: 'manage',
+              branch: 'filled'  // branch用于在管理页面的不同分支页面
+            }
+          },
+          {
+            path: 'released',
+            name: '已发布的问卷',
+            component: () => import('@/components/ManageQN/ReleasedQNs'),
+            meta: {
+              page: 'manage',
+              branch: 'released'
+            }
+          },
+          {
+            path: 'draft',
+            name: '草稿箱',
+            component: () => import('@/components/ManageQN/Drafts'),
+            meta: {
+              page: 'manage',
+              branch: 'draft'
+            }
+          }
+        ]
       }
     ]
   }
