@@ -12,6 +12,8 @@
 }
 
 .home .choose-box .greeting-banner {
+    cursor: default;
+
     font-family: "STZhongsong", "STHeiti", serif;
     font-size: 25px;
     color: #fff;

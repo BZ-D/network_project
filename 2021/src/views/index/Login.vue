@@ -5,17 +5,19 @@
       <div class="input-box">
         <div class="input-text">
           <span class="iconfont icon-mine"></span>
-          <input type="text" placeholder="用户名">
+          <input type="text" placeholder="账号" v-model="accountNumber">
         </div>
         <div class="input-text">
           <span class="iconfont icon-lock"></span>
-          <input type="password" placeholder="密码">
+          <input type="password" placeholder="密码" v-model="passwd">
         </div>
-        <div class="input-btn" @click="toMain">
-          登  录
+        <div :class="{active: mouseOnLogin}" class="input-btn" @mouseover="mouseOnLogin=true"
+             @mouseleave="mouseOnLogin=false" @click="login">
+          登 录
         </div>
         <div class="sign-up">
-          还没账户？<a @click="toSignup">立即注册！</a>
+          还没账户？<a :class="{signup_active: mouseOnSignup}" @click="toSignup" @mouseover="mouseOnSignup=true"
+                  @mouseleave="mouseOnSignup=false">立即注册！</a>
         </div>
       </div>
     </div>
@@ -27,6 +29,15 @@
 
 export default {
   name: 'Home',
+  data() {
+    return {
+      mouseOnLogin: false,
+      mouseOnSignup: false,
+
+      accountNumber: '',
+      passwd: ''
+    }
+  },
   components: {},
   methods: {
     toSignup() {
@@ -34,6 +45,34 @@ export default {
     },
     toMain() {
       this.$router.push('/main')
+    },
+    login() {
+      // TODO: 点击登录按钮后实现登录功能，首先检查是否输入，然后检查输入是否有误，然后检查数据库中是否有该用户，无误后登录
+
+      if (this.accountNumber.length === 0) {
+        window.alert('请输入用户名！')
+        return
+      }
+      if (this.passwd.length === 0) {
+        window.alert('请输入密码！')
+        return
+      }
+
+      // 第一遍检查：前端检查，如果不符合正则要求直接提示错误
+      const account_reg = /^[a-zA-Z0-9_]{6,20}$/
+      const passwd_reg = /^[a-zA-Z0-9_]{8,20}$/
+      if (!account_reg.test(this.accountNumber) || !passwd_reg.test(this.passwd)) {
+        window.alert('用户名或密码错误！')
+        return
+      }
+
+      // 第二遍检查：后端检查，数据库中是否有此账户，以及账号和密码是否可以对应上
+      // TODO
+
+      // 如果成功登录，下面调toMain函数
+      if (false) {
+        this.toMain()
+      }
     }
   }
 }
@@ -42,5 +81,7 @@ export default {
 
 </script>
 <style scoped>
-
+.login .login-box .input-box .sign-up .signup_active {
+  text-decoration: underline;
+}
 </style>

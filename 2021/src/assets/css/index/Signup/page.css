@@ -40,6 +40,8 @@
 }
 
 .signup-box h1 {
+    cursor: default;
+
     margin-top: 20px;
     margin-bottom: 20px;
 
@@ -83,8 +85,10 @@
     background-color: #ffffff00;
     color: #fff;
     margin-top: 20px;
+    margin-left: 5px;
 
-    width: 200px;
+    width: 450px;
+    font-size: 15px;
     text-align: center;
 }
 
@@ -92,7 +96,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 25px;
+    margin-top: 35px;
     width: 145px;
     height: 35px;
     color: #fff;
@@ -101,7 +105,13 @@
     cursor: pointer;
 }
 
-.signup-box .input-box .sign-up {
+.signup-box .input-box .active {
+    background: linear-gradient(120deg, #5576d7 0%, #fa6165 100%);
+}
+
+.signup-box .input-box .log-in {
+    cursor: default;
+
     width: 100%;
     display: flex;
     justify-content: center;
@@ -110,7 +120,7 @@
     font-size: 17px;
 }
 
-.signup-box .input-box .sign-up a {
+.signup-box .input-box .log-in a {
     color: #26afbb;
     text-decoration: none;
     cursor: pointer;

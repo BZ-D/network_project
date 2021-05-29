@@ -6,7 +6,7 @@
 
     <div class="info-box">
       <span class="greeting-banner">
-        <h2>欢迎您，{{ userName }}！</h2>
+        欢迎您，{{ userName }}！
       </span>
 
       <h2 class="up-to-now">截至目前：</h2>
@@ -204,9 +204,6 @@ export default {
 
 #profile .info-box .greeting-banner {
   margin: 0 auto 30px;
-}
-
-#profile .info-box .greeting-banner h2 {
   font-size: 40px;
   font-weight: bolder;
   font-family: "STZhongsong", "STHeiti", serif;
