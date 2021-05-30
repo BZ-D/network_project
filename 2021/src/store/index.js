@@ -5,6 +5,7 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
+
 const store =  new Vuex.Store({
   state: {
     maxOfQuestions: 20,  // 题目最大数量
@@ -12,6 +13,7 @@ const store =  new Vuex.Store({
     gotoCreateDetail: false,  // 是否正确输入了问卷题目，为true时，跳转到题目添加页面
     isAdding: false, // 创建问卷页面是否正在添加题目？（true：突出显示题型选择框）
     numOfQuestions: 0,  //  记录题目数量，上限为20
+
 
     // questionAddingInfo: {
     //   title: '',  // 目前正在添加的题目名称
@@ -25,10 +27,13 @@ const store =  new Vuex.Store({
 
 
     questions: [
+      // 最多可以20个OBJ
       // 已添加的题目，里边存对象
-      // 对象内容：title, type, must, options(如果是选择题的话)
+      // 对象内容：title, type, must, options[](如果是选择题的话)
     ],
   },
+
+
   mutations: {
     fillTitle(state, QN_title) {
       state.titleOfQN = QN_title

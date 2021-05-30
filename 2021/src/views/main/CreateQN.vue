@@ -117,6 +117,8 @@ export default {
   width: 70%;
   border: 0;
   border-bottom: solid 1px #fff;
+  outline: none;
+
   height: 40px;
   background-color: #ffffff00;
   color: #fff;

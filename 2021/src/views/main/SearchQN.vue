@@ -84,6 +84,7 @@ export default {
 
   border: 0;
   border-bottom: 1px solid #000;
+  outline: none;
 
   text-align: center;
   font-size: 18px;
@@ -93,6 +94,7 @@ export default {
   width: 100px;
   height: 25px;
   margin-left: 10px;
+
 }
 
 #search .search-box .search-type .options {
@@ -102,6 +104,7 @@ export default {
 
   border: 0;
   border-right: 1px solid #9c9c9c;
+  outline: none;
 }
 
 #search .search-box .search-icon {

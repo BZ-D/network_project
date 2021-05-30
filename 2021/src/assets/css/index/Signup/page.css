@@ -90,6 +90,7 @@
     width: 450px;
     font-size: 15px;
     text-align: center;
+    outline: none;
 }
 
 .signup-box .input-box .input-btn {

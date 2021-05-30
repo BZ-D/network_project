@@ -90,6 +90,8 @@
     width: 200px;
     text-align: center;
     font-size: 17px;
+
+    outline: none;
 }
 
 .login-box .input-box .input-btn {

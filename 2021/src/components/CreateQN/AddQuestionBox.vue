@@ -175,6 +175,7 @@ export default {
   background-color: #ffffff00;
   color: #262626;
   font-size: 15px;
+  outline: none;
 
   width: 80%;
   height: 30px;

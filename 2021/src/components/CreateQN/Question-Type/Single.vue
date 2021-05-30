@@ -265,6 +265,7 @@ export default {
   text-align: center;
   border-bottom: 1px solid #000;
   font-size: 20px;
+  outline: none;
 }
 
 #single-question .options-show-area .delete-question-btn {
