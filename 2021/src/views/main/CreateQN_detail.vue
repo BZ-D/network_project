@@ -85,6 +85,8 @@ window.onbeforeunload = function (e) {
 
 import add_question_box from '@/components/CreateQN/AddQuestionBox'
 import new_question from '@/components/CreateQN/NewQuestion'
+import {release} from '@/api/createQN'
+import {draft} from '@/api/createQN'
 
 export default {
   name: "CreateQN_detail",
@@ -177,6 +179,20 @@ export default {
       }
 
       // TODO: 检查结束，每个问题都符合要求后，下面要把问卷传到数据库，数据库存储完毕后，再将该问卷信息从$store中删除
+      // release({
+      //   userID: this.$store.state.userID,
+      //   titleOfQN: this.$store.state.titleOfQN,
+      //   questions: this.$store.state.questions
+      // }).then(res => {
+      //   console.log(res)
+      //   if (发布成功，即存储到数据库成功) {
+      //     页面显示发布成功
+      //   } else {
+      //     页面显示发布失败
+      //   }
+      // })
+
+
     },
     draftThisQN() {
       // 确定保存为草稿后，只需要检查是否有超过选项字数限制的内容，不必理会选项为空和没有选项的情况
@@ -197,6 +213,19 @@ export default {
       }
 
       // TODO: 检查结束，下面要把问卷草稿传到数据库，数据库存储完毕后，再将该问卷信息从$store中删除
+      
+      // draft({
+      //   userID: this.$store.state.userID,
+      //   titleOfQN: this.$store.state.titleOfQN,
+      //   questions: this.$store.state.questions
+      // }).then(res => {
+      //   console.log(res)
+      //   if (保存成功，即存储到数据库成功) {
+      //     页面显示保存成功
+      //   } else {
+      //     页面显示保存失败
+      //   }
+      // })
     }
   }
 

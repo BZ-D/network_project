@@ -34,6 +34,7 @@
 
 <script>
 // @ is an alias to /src
+import { signup } from '@/api/user'
 
 export default {
   name: 'Signup',
@@ -101,6 +102,18 @@ export default {
       }
 
       // 检查完毕，下面需要检测是否与数据库已有帐户存在冲突
+      //
+      // signup({accountNumber: this.accountNumber, nickname: this.nickname, password: this.passwd_2}).then(res => {
+      //   console.log(res)
+      //   if (账号 昵称 密码都合格，成功存到了数据库中) {
+      //     界面显示注册成功，而后跳转到登陆页面
+      //   } else {
+      //     界面显示注册失败！具体失败原因由后端返回：
+      //     1、账号已存在
+      //     2、昵称已存在
+      //     （输入不规范的情况上面代码已经判断过了，只需要判断这两种情况即可）
+      //   }
+      // })
 
       // 没有冲突，将注册信息存入数据库
     }

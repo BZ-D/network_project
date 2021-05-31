@@ -12,7 +12,7 @@
       </span>
       <span class="search-icon">
         <img v-show="!mouseOnSearch" :src="require('@/assets/img/navi-bar/放大镜.png')"
-            @mouseover="mouseOnSearch=true" alt="">
+             @mouseover="mouseOnSearch=true" alt="">
         <img v-show="mouseOnSearch" :src="require('@/assets/img/navi-bar/放大镜mouseon.png')" @click="searchQN"
              @mouseleave="mouseOnSearch=false" alt="">
       </span>
@@ -21,6 +21,8 @@
 </template>
 
 <script>
+import {searchByTitle, searchByUser} from "@/api/searchQN";
+
 export default {
   name: "SearchQN",
   computed: {
@@ -51,6 +53,28 @@ export default {
         return
       }
       // TODO: 在输入框文本合格后，请求后端数据库相关的问卷，并显示到页面上
+
+
+      // if (this.placeholder === '请在此输入问卷名称') {
+      //   // 按问卷名称搜索
+      //   searchByTitle({searchContent: this.searchContent}).then(res => {
+      //     if (搜索成功) {
+      //       显示所有搜索结果，要求res返回所有相关的问卷信息
+      //       包括问卷id、问卷名称、问卷包含的题目数组、发布用户的id、发布用户的昵称，作为一个对象返回
+      //     } else {
+      //       显示搜索失败相关信息
+      //     }
+      //   })
+      // } else {
+      //   searchByUser({searchContent: this.searchContent}).then(res => {
+      //     if (搜索成功) {
+      //       显示所有搜索结果，要求res返回所有相关的问卷信息
+      //       包括问卷id、问卷名称、问卷包含的题目数组、发布用户的id、发布用户的昵称，作为一个对象返回
+      //     } else {
+      //       显示搜索失败相关信息
+      //     }
+      //   })
+      // }
     }
   }
 }

@@ -26,6 +26,7 @@
 
 <script>
 // @ is an alias to /src
+import {login} from '@/api/user'
 
 export default {
   name: 'Home',
@@ -69,10 +70,30 @@ export default {
       // 第二遍检查：后端检查，数据库中是否有此账户，以及账号和密码是否可以对应上
       // TODO
 
-      // 如果成功登录，下面调toMain函数
-      if (false) {
-        this.toMain()
-      }
+      // login({accountNumber: this.accountNumber, password: this.passwd}).then(res => {
+      //   console.log(res)
+      //   // 期望后端返回
+      //   // res: 是一个对象，内容如下
+      //   // {
+      //   // userId: int 用户在数据库中的id号,
+      //   // accountNumber: String 账号,
+      //   // nickname: String 昵称,
+      //   // releasedQN: [] 该用户已发布问卷（包含问卷的详细问题，以及该问卷的所有填写情况）,
+      //   // filledQN: [] 该用户已填写的问卷（包含此用户填写该问卷的详细情况）,
+      //   // drafts: [] 该用户的草稿问卷（包含问卷的详细问题）
+      //   // }
+      //   if (成功请求到了数据) {
+      //     界面显示登录成功
+      //     this.$store.commit('setUserInfo', res)  // 更新vuex里的用户信息
+      //     this.toMain() // 跳转到main界面，可以开始使用系统
+      //   } else {
+      //     // 没有成功请求到数据
+      //     界面显示登录失败
+      //   }
+      // })
+
+
+
     }
   }
 }

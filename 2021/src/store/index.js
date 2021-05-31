@@ -14,27 +14,33 @@ const store =  new Vuex.Store({
     isAdding: false, // 创建问卷页面是否正在添加题目？（true：突出显示题型选择框）
     numOfQuestions: 0,  //  记录题目数量，上限为20
 
-
-    // questionAddingInfo: {
-    //   title: '',  // 目前正在添加的题目名称
-    //   type: '',  // 目前正在添加的题型
-    //   must: '',  // 目前正在添加的题目必答与否
-    //
-    //   options: [
-    //     // 选择题的选项，最多6项
-    //   ]
-    // },
-
-
     questions: [
       // 最多可以20个OBJ
       // 已添加的题目，里边存对象
       // 对象内容：title, type, must, options[](如果是选择题的话)
     ],
+
+    // 以下存储当前登录用户的相关信息：
+    userID: -1,
+    accountNumber: '',
+    nickname: '',
+    releasedQN: [],
+    filledQN: [],
+    drafts: [],
+
   },
 
 
   mutations: {
+    setUserInfo(state, payload) {
+      state.userID = payload.userID
+      state.accountNumber = payload.accountNumber
+      state.nickname = payload.nickname
+      state.releasedQN = payload.releasedQN
+      state.filledQN = payload.filledQN
+      state.drafts = payload.drafts
+    },
+
     fillTitle(state, QN_title) {
       state.titleOfQN = QN_title
     },
