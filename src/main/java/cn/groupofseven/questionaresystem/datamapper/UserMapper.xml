@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.groupofseven.questionaresystem.datamapper.UserMapper">
+  <resultMap id="BaseResultMap" type="cn.groupofseven.questionaresystem.po.User">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="ac_number" jdbcType="VARCHAR" property="acNumber" />
+    <result column="uname" jdbcType="VARCHAR" property="uname" />
+    <result column="num_of_filling" jdbcType="INTEGER" property="numOfFilling" />
+    <result column="num_of_release" jdbcType="INTEGER" property="numOfRelease" />
+    <result column="num_of_draft" jdbcType="INTEGER" property="numOfDraft" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, ac_number, uname, num_of_filling, num_of_release, num_of_draft, password, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_intel
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user_intel
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.groupofseven.questionaresystem.po.User">
+    insert into user_intel (id, ac_number, uname,
+      num_of_filling, num_of_release, num_of_draft, 
+      password, create_time)
+    values (#{id,jdbcType=INTEGER}, #{acNumber,jdbcType=VARCHAR}, #{uname,jdbcType=VARCHAR}, 
+      #{numOfFilling,jdbcType=INTEGER}, #{numOfRelease,jdbcType=INTEGER}, #{numOfDraft,jdbcType=INTEGER}, 
+      #{password,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.groupofseven.questionaresystem.po.User">
+    insert into user_intel
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="acNumber != null">
+        ac_number,
+      </if>
+      <if test="uname != null">
+        uname,
+      </if>
+      <if test="numOfFilling != null">
+        num_of_filling,
+      </if>
+      <if test="numOfRelease != null">
+        num_of_release,
+      </if>
+      <if test="numOfDraft != null">
+        num_of_draft,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="acNumber != null">
+        #{acNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="uname != null">
+        #{uname,jdbcType=VARCHAR},
+      </if>
+      <if test="numOfFilling != null">
+        #{numOfFilling,jdbcType=INTEGER},
+      </if>
+      <if test="numOfRelease != null">
+        #{numOfRelease,jdbcType=INTEGER},
+      </if>
+      <if test="numOfDraft != null">
+        #{numOfDraft,jdbcType=INTEGER},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.groupofseven.questionaresystem.po.User">
+    update user_intel
+    <set>
+      <if test="acNumber != null">
+        ac_number = #{acNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="uname != null">
+        uname = #{uname,jdbcType=VARCHAR},
+      </if>
+      <if test="numOfFilling != null">
+        num_of_filling = #{numOfFilling,jdbcType=INTEGER},
+      </if>
+      <if test="numOfRelease != null">
+        num_of_release = #{numOfRelease,jdbcType=INTEGER},
+      </if>
+      <if test="numOfDraft != null">
+        num_of_draft = #{numOfDraft,jdbcType=INTEGER},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.groupofseven.questionaresystem.po.User">
+    update user_intel
+    set ac_number = #{acNumber,jdbcType=VARCHAR},
+      uname = #{uname,jdbcType=VARCHAR},
+      num_of_filling = #{numOfFilling,jdbcType=INTEGER},
+      num_of_release = #{numOfRelease,jdbcType=INTEGER},
+      num_of_draft = #{numOfDraft,jdbcType=INTEGER},
+      password = #{password,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByAcnumber" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select id,ac_number,uname,num_of_filling,num_of_release,num_of_draft,password,create_time
+    from user_intel
+    where ac_number=#{acNumber}
+  </select>
+  <update id="increaseFilling">
+    update user_intel
+    set num_of_filling=num_of_filling+1
+    where id=#{id}
+  </update>
+  <update id="increaseRelease">
+    update user_intel
+    set num_of_release=num_of_release+1
+    where id=#{id}
+  </update>
+  <update id="increaseDraft">
+    update user_intel
+    set num_of_draft=num_of_draft+1
+    where id=#{id}
+  </update>
+  <update id="decreaseDraft">
+    update user_intel
+    set num_of_draft=num_of_draft-1
+    where id=#{id}
+  </update>
+</mapper>

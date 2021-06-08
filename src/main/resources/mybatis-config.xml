@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <setting name="useColumnLabel" value="true"/>
+        <setting name="useGeneratedKeys" value="true" />
+        <setting name="mapUnderscoreToCamelCase" value="true" />
+    </settings>
+    <mappers>
+        <mapper class="cn.groupofseven.questionaresystem.datamapper.UserMapper"/>
+        <mapper class="cn.groupofseven.questionaresystem.datamapper.AnswerMapper"/>
+        <mapper class="cn.groupofseven.questionaresystem.datamapper.QuestionareMapper"/>
+        <mapper class="cn.groupofseven.questionaresystem.datamapper.QuestionMapper"/>
+    </mappers>
+</configuration>

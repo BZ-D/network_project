@@ -1,17 +1,41 @@
 import axios from 'axios'
 
+//POST 请求不会被缓存
+//POST 请求不会保留在浏览器历史记录中
+//POST 不能被收藏为书签
+//POST 请求对数据长度没有要求
+//GET 请求可被缓存
+//GET 请求保留在浏览器历史记录中
+//GET 请求可被收藏为书签
+//GET 请求不应在处理敏感数据时使用
+//GET 请求有长度限制
+//GET 请求只应当用于取回数据（不修改）
 export const login = payload => {
   console.log(payload)
-  const { accountNumber, password } = payload
-  return axios.post('后端提供的Controller', { accountNumber, password }).then(res => {
+  const { acNumber, password } = payload
+  return axios.post('${USER_MODULE}/login', { acNumber, password }).then(res => {
     return res.data
   })
 }
 
 export const signup = payload => {
   console.log(payload)
-  const { accountNumber, nickname, password } = payload
-  return axios.post('后端提供的Controller', { accountNumber, nickname, password }).then(res => {
+  const {
+    acNumber,
+      uname,
+    password
+  } = payload
+  return axios.post('${USER_MODULE}/signup', {
+    acNumber,
+    uname,
+    password
+  }).then(res => {
+    return res.data
+  })
+}
+export const getuser = payload => {
+  console.log(payload)
+  return axios.post('${USER_MODULE}/${uid}').then(res => {
     return res.data
   })
 }

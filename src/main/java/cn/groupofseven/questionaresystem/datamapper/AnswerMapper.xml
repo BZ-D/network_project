@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.groupofseven.questionaresystem.datamapper.AnswerMapper">
+  <resultMap id="BaseResultMap" type="cn.groupofseven.questionaresystem.po.Answer">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="answer_user_id" jdbcType="INTEGER" property="answerUserId" />
+    <result column="answer_qn_id" jdbcType="INTEGER" property="answerQnId" />
+    <result column="question_id" jdbcType="INTEGER" property="questionId" />
+    <result column="gap_answer" jdbcType="VARCHAR" property="gapAnswer" />
+    <result column="single_answer" jdbcType="INTEGER" property="singleAnswer" />
+    <result column="multi_one" jdbcType="BIT" property="multiOne" />
+    <result column="multi_two" jdbcType="BIT" property="multiTwo" />
+    <result column="multi_three" jdbcType="BIT" property="multiThree" />
+    <result column="multi_four" jdbcType="BIT" property="multiFour" />
+    <result column="multi_five" jdbcType="BIT" property="multiFive" />
+    <result column="multi_six" jdbcType="BIT" property="multiSix" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, answer_user_id, answer_qn_id, question_id, gap_answer, single_answer, multi_one, 
+    multi_two, multi_three, multi_four, multi_five, multi_six, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from answer
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from answer
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.groupofseven.questionaresystem.po.Answer">
+    insert into answer (id, answer_user_id, answer_qn_id, 
+      question_id, gap_answer, single_answer, 
+      multi_one, multi_two, multi_three, 
+      multi_four, multi_five, multi_six, 
+      create_time)
+    values (#{id,jdbcType=INTEGER}, #{answerUserId,jdbcType=INTEGER}, #{answerQnId,jdbcType=INTEGER}, 
+      #{questionId,jdbcType=INTEGER}, #{gapAnswer,jdbcType=VARCHAR}, #{singleAnswer,jdbcType=INTEGER}, 
+      #{multiOne,jdbcType=BIT}, #{multiTwo,jdbcType=BIT}, #{multiThree,jdbcType=BIT}, 
+      #{multiFour,jdbcType=BIT}, #{multiFive,jdbcType=BIT}, #{multiSix,jdbcType=BIT}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.groupofseven.questionaresystem.po.Answer">
+    insert into answer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="answerUserId != null">
+        answer_user_id,
+      </if>
+      <if test="answerQnId != null">
+        answer_qn_id,
+      </if>
+      <if test="questionId != null">
+        question_id,
+      </if>
+      <if test="gapAnswer != null">
+        gap_answer,
+      </if>
+      <if test="singleAnswer != null">
+        single_answer,
+      </if>
+      <if test="multiOne != null">
+        multi_one,
+      </if>
+      <if test="multiTwo != null">
+        multi_two,
+      </if>
+      <if test="multiThree != null">
+        multi_three,
+      </if>
+      <if test="multiFour != null">
+        multi_four,
+      </if>
+      <if test="multiFive != null">
+        multi_five,
+      </if>
+      <if test="multiSix != null">
+        multi_six,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="answerUserId != null">
+        #{answerUserId,jdbcType=INTEGER},
+      </if>
+      <if test="answerQnId != null">
+        #{answerQnId,jdbcType=INTEGER},
+      </if>
+      <if test="questionId != null">
+        #{questionId,jdbcType=INTEGER},
+      </if>
+      <if test="gapAnswer != null">
+        #{gapAnswer,jdbcType=VARCHAR},
+      </if>
+      <if test="singleAnswer != null">
+        #{singleAnswer,jdbcType=INTEGER},
+      </if>
+      <if test="multiOne != null">
+        #{multiOne,jdbcType=BIT},
+      </if>
+      <if test="multiTwo != null">
+        #{multiTwo,jdbcType=BIT},
+      </if>
+      <if test="multiThree != null">
+        #{multiThree,jdbcType=BIT},
+      </if>
+      <if test="multiFour != null">
+        #{multiFour,jdbcType=BIT},
+      </if>
+      <if test="multiFive != null">
+        #{multiFive,jdbcType=BIT},
+      </if>
+      <if test="multiSix != null">
+        #{multiSix,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.groupofseven.questionaresystem.po.Answer">
+    update answer
+    <set>
+      <if test="answerUserId != null">
+        answer_user_id = #{answerUserId,jdbcType=INTEGER},
+      </if>
+      <if test="answerQnId != null">
+        answer_qn_id = #{answerQnId,jdbcType=INTEGER},
+      </if>
+      <if test="questionId != null">
+        question_id = #{questionId,jdbcType=INTEGER},
+      </if>
+      <if test="gapAnswer != null">
+        gap_answer = #{gapAnswer,jdbcType=VARCHAR},
+      </if>
+      <if test="singleAnswer != null">
+        single_answer = #{singleAnswer,jdbcType=INTEGER},
+      </if>
+      <if test="multiOne != null">
+        multi_one = #{multiOne,jdbcType=BIT},
+      </if>
+      <if test="multiTwo != null">
+        multi_two = #{multiTwo,jdbcType=BIT},
+      </if>
+      <if test="multiThree != null">
+        multi_three = #{multiThree,jdbcType=BIT},
+      </if>
+      <if test="multiFour != null">
+        multi_four = #{multiFour,jdbcType=BIT},
+      </if>
+      <if test="multiFive != null">
+        multi_five = #{multiFive,jdbcType=BIT},
+      </if>
+      <if test="multiSix != null">
+        multi_six = #{multiSix,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.groupofseven.questionaresystem.po.Answer">
+    update answer
+    set answer_user_id = #{answerUserId,jdbcType=INTEGER},
+      answer_qn_id = #{answerQnId,jdbcType=INTEGER},
+      question_id = #{questionId,jdbcType=INTEGER},
+      gap_answer = #{gapAnswer,jdbcType=VARCHAR},
+      single_answer = #{singleAnswer,jdbcType=INTEGER},
+      multi_one = #{multiOne,jdbcType=BIT},
+      multi_two = #{multiTwo,jdbcType=BIT},
+      multi_three = #{multiThree,jdbcType=BIT},
+      multi_four = #{multiFour,jdbcType=BIT},
+      multi_five = #{multiFive,jdbcType=BIT},
+      multi_six = #{multiSix,jdbcType=BIT},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

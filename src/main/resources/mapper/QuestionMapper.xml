@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.groupofseven.questionaresystem.datamapper.QuestionMapper">
+  <resultMap id="BaseResultMap" type="cn.groupofseven.questionaresystem.po.Question">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="qn_id" jdbcType="INTEGER" property="qnId" />
+    <result column="question_title" jdbcType="VARCHAR" property="questionTitle" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="is_must" jdbcType="BIT" property="isMust" />
+    <result column="option_a" jdbcType="VARCHAR" property="optionA" />
+    <result column="option_b" jdbcType="VARCHAR" property="optionB" />
+    <result column="option_c" jdbcType="VARCHAR" property="optionC" />
+    <result column="option_d" jdbcType="VARCHAR" property="optionD" />
+    <result column="option_e" jdbcType="VARCHAR" property="optionE" />
+    <result column="option_f" jdbcType="VARCHAR" property="optionF" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, qn_id, question_title, type, is_must, option_a, option_b, option_c, option_d, 
+    option_e, option_f, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from question
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from question
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.groupofseven.questionaresystem.po.Question">
+    insert into question (id, qn_id, question_title, 
+      type, is_must, option_a, 
+      option_b, option_c, option_d, 
+      option_e, option_f, create_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{qnId,jdbcType=INTEGER}, #{questionTitle,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{isMust,jdbcType=BIT}, #{optionA,jdbcType=VARCHAR}, 
+      #{optionB,jdbcType=VARCHAR}, #{optionC,jdbcType=VARCHAR}, #{optionD,jdbcType=VARCHAR}, 
+      #{optionE,jdbcType=VARCHAR}, #{optionF,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.groupofseven.questionaresystem.po.Question">
+    insert into question
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="qnId != null">
+        qn_id,
+      </if>
+      <if test="questionTitle != null">
+        question_title,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="isMust != null">
+        is_must,
+      </if>
+      <if test="optionA != null">
+        option_a,
+      </if>
+      <if test="optionB != null">
+        option_b,
+      </if>
+      <if test="optionC != null">
+        option_c,
+      </if>
+      <if test="optionD != null">
+        option_d,
+      </if>
+      <if test="optionE != null">
+        option_e,
+      </if>
+      <if test="optionF != null">
+        option_f,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="qnId != null">
+        #{qnId,jdbcType=INTEGER},
+      </if>
+      <if test="questionTitle != null">
+        #{questionTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="isMust != null">
+        #{isMust,jdbcType=BIT},
+      </if>
+      <if test="optionA != null">
+        #{optionA,jdbcType=VARCHAR},
+      </if>
+      <if test="optionB != null">
+        #{optionB,jdbcType=VARCHAR},
+      </if>
+      <if test="optionC != null">
+        #{optionC,jdbcType=VARCHAR},
+      </if>
+      <if test="optionD != null">
+        #{optionD,jdbcType=VARCHAR},
+      </if>
+      <if test="optionE != null">
+        #{optionE,jdbcType=VARCHAR},
+      </if>
+      <if test="optionF != null">
+        #{optionF,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.groupofseven.questionaresystem.po.Question">
+    update question
+    <set>
+      <if test="qnId != null">
+        qn_id = #{qnId,jdbcType=INTEGER},
+      </if>
+      <if test="questionTitle != null">
+        question_title = #{questionTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="isMust != null">
+        is_must = #{isMust,jdbcType=BIT},
+      </if>
+      <if test="optionA != null">
+        option_a = #{optionA,jdbcType=VARCHAR},
+      </if>
+      <if test="optionB != null">
+        option_b = #{optionB,jdbcType=VARCHAR},
+      </if>
+      <if test="optionC != null">
+        option_c = #{optionC,jdbcType=VARCHAR},
+      </if>
+      <if test="optionD != null">
+        option_d = #{optionD,jdbcType=VARCHAR},
+      </if>
+      <if test="optionE != null">
+        option_e = #{optionE,jdbcType=VARCHAR},
+      </if>
+      <if test="optionF != null">
+        option_f = #{optionF,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.groupofseven.questionaresystem.po.Question">
+    update question
+    set qn_id = #{qnId,jdbcType=INTEGER},
+      question_title = #{questionTitle,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      is_must = #{isMust,jdbcType=BIT},
+      option_a = #{optionA,jdbcType=VARCHAR},
+      option_b = #{optionB,jdbcType=VARCHAR},
+      option_c = #{optionC,jdbcType=VARCHAR},
+      option_d = #{optionD,jdbcType=VARCHAR},
+      option_e = #{optionE,jdbcType=VARCHAR},
+      option_f = #{optionF,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
