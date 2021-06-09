@@ -6,7 +6,7 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 
-const store =  new Vuex.Store({
+const store = new Vuex.Store({
   state: {
     maxOfQuestions: 20,  // 题目最大数量
     titleOfQN: '',  // 现在正在创建问卷的题目
@@ -89,7 +89,12 @@ const store =  new Vuex.Store({
       state.gotoCreateDetail = false
       state.numOfQuestions = 0
       state.questions.length = 0
-    }
+    },
+    gotoDetailFromDrafts(state, payload) {
+      // 从草稿箱点击 继续编辑 跳到/main/detail
+      state.gotoCreateDetail = true
+      state.titleOfQN = payload
+    },
   },
   actions: {},
   modules: {}

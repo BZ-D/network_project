@@ -59,6 +59,7 @@ CREATE TABLE `answer`  (
     `answer_user_id` int(11) NOT NULL,
     `answer_qn_id` int(11) NOT NULL,
     `question_id` int(11) NOT NULL,
+
     `gap_answer` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '无',
     `single_answer` int(11) NOT NULL DEFAULT 0,
     `multi_one` tinyint(1) NOT NULL DEFAULT 0,
@@ -67,6 +68,7 @@ CREATE TABLE `answer`  (
     `multi_four` tinyint(1) NOT NULL DEFAULT 0,
     `multi_five` tinyint(1) NOT NULL DEFAULT 0,
     `multi_six` tinyint(1) NOT NULL DEFAULT 0,
+
     `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
     PRIMARY KEY (`id`) USING BTREE,
     INDEX `fk_question_answer`(`question_id`) USING BTREE,

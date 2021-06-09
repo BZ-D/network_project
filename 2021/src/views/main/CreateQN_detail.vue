@@ -85,8 +85,6 @@ window.onbeforeunload = function (e) {
 
 import add_question_box from '@/components/CreateQN/AddQuestionBox'
 import new_question from '@/components/CreateQN/NewQuestion'
-import {release} from '@/api/createQN'
-import {draft} from '@/api/createQN'
 
 export default {
   name: "CreateQN_detail",
@@ -213,7 +211,7 @@ export default {
       }
 
       // TODO: 检查结束，下面要把问卷草稿传到数据库，数据库存储完毕后，再将该问卷信息从$store中删除
-      
+
       // draft({
       //   userID: this.$store.state.userID,
       //   titleOfQN: this.$store.state.titleOfQN,
@@ -392,6 +390,9 @@ export default {
   margin: 0 auto 20px;
   width: 650px;
   height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   color: #fff;
   text-shadow: 1px 1px 1px #000;

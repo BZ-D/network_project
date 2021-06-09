@@ -45,11 +45,20 @@ export default {
 
 <style scoped>
 
+#manage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 #manage .manage-bar {
   width: 350px;
   height: 35px;
   border-radius: 25px;
   background-color: #fff;
+
+  margin-bottom: 15px;
 
   display: flex;
   align-items: center;
