@@ -19,6 +19,13 @@
     id, qn_id, question_title, type, is_must, option_a, option_b, option_c, option_d, 
     option_e, option_f, create_time
   </sql>
+  <select id="getQuestionsByQnId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from question
+    where qn_id = #{qnId,jdbcType=INTEGER}
+    group by id
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

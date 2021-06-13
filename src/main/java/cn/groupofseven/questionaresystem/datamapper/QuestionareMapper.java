@@ -18,4 +18,6 @@ public interface QuestionareMapper {
     int updateByPrimaryKeySelective(Questionare record);
 
     int updateByPrimaryKey(Questionare record);
+
+    ArrayList<Questionare> selectDraftByUserId(Integer uid);
 }
