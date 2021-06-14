@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 
 public interface AnswerService {
-    List<AnswerVO> insertQuestions(List<AnswerVO> answers);
+    List<AnswerVO> insertAnswers(List<AnswerVO> answers);
 
-    List<AnswerVO> getQuestions(Integer uid, Integer qnId);
+    List<AnswerVO> getAnswers(Integer uid, Integer qnId);
 }

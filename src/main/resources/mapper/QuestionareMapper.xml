@@ -12,18 +12,24 @@
   <sql id="Base_Column_List">
     id, create_user_id, title_of_qn, is_draft, num_of_questions, create_time
   </sql>
+  <select id="selectDraftByUserId" parameterType="java.lang.Integer" resultType="BaseResultMap">
+    select q.id,create_user_id,title_of_qn,is_draft,num_of_questions,create_time
+    from questionaredb.questionare q
+    where is_draft = 1
+    group by q.id
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from questionare
+    from questionaredb.questionare
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from questionare
+    delete from questionaredb.questionare
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="cn.groupofseven.questionaresystem.po.Questionare">
-    insert into questionare (id, create_user_id, title_of_qn, 
+    insert into questionaredb.questionare (id, create_user_id, title_of_qn,
       is_draft, num_of_questions, create_time
       )
     values (#{id,jdbcType=INTEGER}, #{createUserId,jdbcType=INTEGER}, #{titleOfQn,jdbcType=VARCHAR}, 
@@ -31,7 +37,7 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="cn.groupofseven.questionaresystem.po.Questionare">
-    insert into questionare
+    insert into questionaredb.questionare
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -74,7 +80,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="cn.groupofseven.questionaresystem.po.Questionare">
-    update questionare
+    update questionaredb.questionare
     <set>
       <if test="createUserId != null">
         create_user_id = #{createUserId,jdbcType=INTEGER},
@@ -95,7 +101,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.groupofseven.questionaresystem.po.Questionare">
-    update questionare
+    update questionaredb.questionare
     set create_user_id = #{createUserId,jdbcType=INTEGER},
       title_of_qn = #{titleOfQn,jdbcType=VARCHAR},
       is_draft = #{isDraft,jdbcType=BIT},
@@ -103,4 +109,16 @@
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectByTitle" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from questionare
+    where title_of_qn = #{title,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByUid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from questionare
+    where create_user_id = #{uid,jdbcType=INTEGER}
+  </select>
 </mapper>

@@ -15,10 +15,10 @@ public class AnswerController {
     private AnswerService answerService;
     @PostMapping("/insertAnswers")
     public List<AnswerVO> insertQuestions(@RequestBody List<AnswerVO> answers){
-        return answerService.insertQuestions(answers);
+        return answerService.insertAnswers(answers);
     }
     @PostMapping("/getAnswers/{qnId}")
     public List<AnswerVO> getQuestions(@RequestParam Integer uid,@PathVariable Integer qnId){
-        return answerService.getQuestions(uid,qnId);
+        return answerService.getAnswers(uid,qnId);
     }
 }

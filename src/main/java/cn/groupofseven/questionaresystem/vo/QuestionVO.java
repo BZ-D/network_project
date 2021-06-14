@@ -129,6 +129,7 @@ public class QuestionVO {
     public QuestionVO(){
     }
     public QuestionVO(@NonNull Question question){
+        id = question.getId();
         qnId=question.getQnId();
         questionTitle=question.getQuestionTitle();
         type=question.getType();
