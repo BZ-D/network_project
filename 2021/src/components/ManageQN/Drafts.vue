@@ -23,32 +23,20 @@
 </template>
 
 <script>
+import {checkDraft, checkFilled} from "@/api/questionare";
+
 export default {
   name: "Drafts",
   data() {
     return {
       searchResults: [
-        {
-          title: '关于大学生兼职状况的调查问卷',
-          qnID: 1,
-          uname: '丁炳智',
-          time: '2021-5-31',
-          mouseOnCheck: false
-        },
-        {
-          title: '青少年恋爱观调查问卷',
-          qnID: 2,
-          uname: '丁炳智',
-          time: '2021-5-29',
-          mouseOnCheck: false
-        },
-        {
-          title: '中小学生作业压力与学习成绩关系的调查',
-          qnID: 1,
-          uname: '丁炳智',
-          time: '2021-6-3',
-          mouseOnCheck: false
-        },
+        // {
+        //   title: '关于大学生兼职状况的调查问卷',
+        //   qnID: 1,
+        //   uname: '丁炳智',
+        //   time: '2021-5-31',
+        //   mouseOnCheck: false
+        // }
       ],
     }
   },
@@ -57,8 +45,24 @@ export default {
       this.$store.commit('gotoDetailFromDrafts', title)
       this.$router.push('/main/detail')
     }
+  },
+  created() {
+    const userID = localStorage.getItem("userId")
+    checkDraft(userID).then(res => {
+      console.log(res)
+      for (const qn of res) {
+        this.searchResults.push({
+          title: qn.titleOfQn,
+          uid: qn.createUserId,
+          qnID: qn.id,
+          time: qn.createTime.substr(0, 10),
+          mouseOnCheck: false
+        })
+      }
+    })
   }
 }
+
 
 // TODO: 显示当前用户保存的所有草稿，用户可以点击继续编辑，此时跳转到create_detail界面，也可以点击删除草稿，从数据库中移除
 </script>

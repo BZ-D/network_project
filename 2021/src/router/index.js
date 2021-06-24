@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-
+import { judgeLogin } from "@/util/auth";
 
 Vue.use(VueRouter)
 
@@ -41,7 +41,8 @@ const routes = [
     component: () => import('@/views/main/Main'),
     meta: {
       index: 1,
-      keepAlive: true
+      keepAlive: true,
+      requireAuth: true
     },
     children: [
       {
@@ -129,5 +130,17 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+router.beforeEach((to, from, next) => {
+  let legal = false;
+  if (!to.path.startsWith("/main") || (to.path.startsWith("/main") && judgeLogin()))
+    legal = true;
+
+  if (legal) {
+    next();
+  } else {
+    next({ path: '/' });
+  }
+});
 
 export default router

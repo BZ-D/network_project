@@ -34,7 +34,7 @@
 
 <script>
 // @ is an alias to /src
-import { signup } from '@/api/user'
+import { signup, getUserByUid } from '@/api/user'
 
 export default {
   name: 'Signup',
@@ -78,22 +78,22 @@ export default {
       }
 
       // 2. 如果都输入，依次按规范检查
-      const account_reg = /^[a-zA-Z0-9_]{6,20}$/
-      const nickname_reg = /^[a-zA-Z0-9_\u4E00-\u9FA5]{1,15}$/
-      const passwd_reg = /^[a-zA-Z0-9_]{8,20}$/
-
-      if (!account_reg.test(this.accountNumber)) {
-        window.alert('账号必须由大小写字母、数字和下划线组成，且不少于6位、不超过20位，请检查您的输入！')
-        return
-      }
-      if (!nickname_reg.test(this.nickname)) {
-        window.alert('用户昵称必须由大小写字母、数字、下划线和中文组成，不能超过15位，请检查您的输入！')
-        return
-      }
-      if (!passwd_reg.test(this.passwd_1)) {
-        window.alert('密码必须由大小写字母、数字和下划线组成，且不少于8位、不超过20位，请检查您的输入！')
-        return
-      }
+      // const account_reg = /^[a-zA-Z0-9_]{6,20}$/
+      // const nickname_reg = /^[a-zA-Z0-9_\u4E00-\u9FA5]{1,15}$/
+      // const passwd_reg = /^[a-zA-Z0-9_]{8,20}$/
+      //
+      // if (!account_reg.test(this.accountNumber)) {
+      //   window.alert('账号必须由大小写字母、数字和下划线组成，且不少于6位、不超过20位，请检查您的输入！')
+      //   return
+      // }
+      // if (!nickname_reg.test(this.nickname)) {
+      //   window.alert('用户昵称必须由大小写字母、数字、下划线和中文组成，不能超过15位，请检查您的输入！')
+      //   return
+      // }
+      // if (!passwd_reg.test(this.passwd_1)) {
+      //   window.alert('密码必须由大小写字母、数字和下划线组成，且不少于8位、不超过20位，请检查您的输入！')
+      //   return
+      // }
 
       // 3. 检查重复密码是否和之前一样
       if (this.passwd_1 !== this.passwd_2) {
@@ -102,20 +102,22 @@ export default {
       }
 
       // 检查完毕，下面需要检测是否与数据库已有帐户存在冲突
-      //
-      // signup({accountNumber: this.accountNumber, nickname: this.nickname, password: this.passwd_2}).then(res => {
-      //   console.log(res)
-      //   if (账号 昵称 密码都合格，成功存到了数据库中) {
-      //     界面显示注册成功，而后跳转到登陆页面
-      //   } else {
-      //     界面显示注册失败！具体失败原因由后端返回：
-      //     1、账号已存在
-      //     2、昵称已存在
-      //     （输入不规范的情况上面代码已经判断过了，只需要判断这两种情况即可）
-      //   }
-      // })
 
-      // 没有冲突，将注册信息存入数据库
+      signup({acNumber: this.accountNumber, uname: this.nickname, password: this.passwd_2}).then(res => {
+        console.log(res)
+        if (res.msg === '注册成功') {
+          window.alert('注册成功，请登录！')
+
+          window.localStorage.setItem("userId", res.data.id);
+          window.localStorage.setItem("userAcNumber", res.data.acNumber);
+          window.localStorage.setItem("username", res.data.uname);
+
+          this.$router.push('/login')
+        } else {
+          window.alert('注册失败！该账号已注册过。')
+        }
+      })
+
     }
   }
 }

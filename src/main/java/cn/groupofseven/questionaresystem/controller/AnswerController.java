@@ -17,7 +17,7 @@ public class AnswerController {
     public List<AnswerVO> insertQuestions(@RequestBody List<AnswerVO> answers){
         return answerService.insertAnswers(answers);
     }
-    @PostMapping("/getAnswers/{qnId}")
+    @GetMapping("/getAnswers/{qnId}")
     public List<AnswerVO> getQuestions(@RequestParam Integer uid,@PathVariable Integer qnId){
         return answerService.getAnswers(uid,qnId);
     }

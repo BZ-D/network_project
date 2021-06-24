@@ -8,17 +8,14 @@
           <h2>{{ qn.title }}</h2>
         </div>
         <div class="release-detail">
-          <div class="releaser">
-            发布者：{{ qn.uname }}
-          </div>
           <div class="release-time">
             发布时间：{{ qn.time }}
           </div>
         </div>
         <div class="fill-btn-area">
           <div :class="{active:qn.mouseOnCheck}" class="fill-btn" @mouseover="qn.mouseOnCheck=true"
-               @mouseleave="qn.mouseOnCheck=false" @click="gotoReleasedContent(qn.uid, qn.qnID, qn.title)">
-            查看问卷内容
+               @mouseleave="qn.mouseOnCheck=false" @click="exportResults(qn.uid, qn.qnID, qn.title)">
+            导出问卷填写情况
           </div>
         </div>
       </div>
@@ -47,93 +44,43 @@
 </template>
 
 <script>
+import {checkFilled, checkReleased} from "@/api/questionare";
+
 export default {
   name: "publishedQNs",
   data() {
     return {
       searchResults: [
-        {
-          title: '关于大学生兼职状况的调查问卷',
-          uid: 1,
-          qnID: 1,
-          uname: '丁炳智',
-          time: '2021-5-31',
-          mouseOnCheck: false
-        },
-        {
-          title: '青少年恋爱观调查问卷',
-          uid: 1,
-          qnID: 2,
-          uname: '丁炳智',
-          time: '2021-5-29',
-          mouseOnCheck: false
-        },
-        {
-          title: '中小学生作业压力与学习成绩关系的调查',
-          uid: 1,
-          qnID: 1,
-          uname: '丁炳智',
-          time: '2021-6-3',
-          mouseOnCheck: false
-        },
+        // {
+        //   title: '关于大学生兼职状况的调查问卷',
+        //   uid: 1,
+        //   qnID: 1,
+        //   uname: '丁炳智',
+        //   time: '2021-5-31',
+        //   mouseOnCheck: false
+        // }
       ],
-      isBrowsingReleased: false,  // 是否正在查看已填写问卷的填写情况
-      releasedQNTitle: '',
-      questions: [
-        {
-          title: '您的年龄？',
-          type: 'gap-fill',
-          must: 'must',
-          options: []
-        },
-        {
-          title: '您的性别？',
-          type: 'single',
-          must: 'must',
-          options: [
-            '男', '女'
-          ]
-        },
-        {
-          title: '您的学历？',
-          type: 'single',
-          must: 'must',
-          options: [
-            '初中及以下',
-            '高中',
-            '本科',
-            '硕士及以上'
-          ]
-        },
-        {
-          title: '您的姓名？',
-          type: 'gap-fill',
-          must: 'must',
-          options: []
-        },
-        {
-          title: '您的学号？',
-          type: 'gap-fill',
-          must: 'must',
-          options: []
-        },
-        {
-          title: '您最喜欢的水果？',
-          type: 'multiple',
-          must: 'optional',
-          options: [
-            '香蕉', '菠萝', '草莓', '苹果', '橙子', '荔枝'
-          ]
-        }
-      ]
     }
   },
   methods: {
-    gotoReleasedContent(uid, qnID, title) {
-      this.isBrowsingReleased = true
-      this.filledQNTitle = title
-      this.releasedQNTitle = title
+    exportResults(uid, qnID, title) {
+      // 导出问卷填写情况
     }
+  },
+  created() {
+    const userID = localStorage.getItem("userId")
+    checkReleased(userID).then(res => {
+      console.log(res)
+      for (const qn of res) {
+        this.searchResults.push({
+          title: qn.titleOfQn,
+          uid: qn.createUserId,
+          qnID: qn.id,
+          time: qn.createTime.substr(0, 10),
+          mouseOnCheck: false
+        })
+      }
+    })
   }
 }
 
@@ -190,7 +137,7 @@ export default {
   border: solid 2px #3582e7;
   color: #3582e7;
 
-  width: 120px;
+  width: 160px;
   height: 30px;
   background-color: #fff;
 

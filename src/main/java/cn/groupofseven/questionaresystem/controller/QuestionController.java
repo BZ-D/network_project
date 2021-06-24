@@ -13,12 +13,14 @@ import java.util.List;
 public class QuestionController {
     @Resource
     private QuestionService questionService;
+
     @PostMapping("/insertQuestions/{qnId}")
-    public List<QuestionVO> insertQuestions(@RequestBody List<QuestionVO> questions){
+    public List<QuestionVO> insertQuestions(@RequestBody List<QuestionVO> questions) {
         return questionService.insertQuestions(questions);
     }
-    @PostMapping("/getQuestions/{qnId}")
-    public List<QuestionVO> getQuestions(@PathVariable Integer qnId){
+
+    @GetMapping("/getQuestions/{qnId}")
+    public List<QuestionVO> getQuestions(@PathVariable Integer qnId) {
         return questionService.getQuestions(qnId);
     }
 }

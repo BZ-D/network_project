@@ -12,7 +12,7 @@
       <h2 class="up-to-now">截至目前：</h2>
 
       <span class="info released-info">
-        <span>您已发布了{{ numOfReleased }}份问卷:
+        <span>您已发布了{{ !!numOfReleased ? numOfReleased : 0 }}份问卷:
           <span :class="{mouse_on_check: mouseOnReleased}" class="go-to-manage-btn" @click="checkReleased"
                 @mouseover="mouseOnReleased=true" @mouseleave="mouseOnReleased=false">点此查看</span>
         </span>
@@ -20,14 +20,14 @@
       </span>
 
       <span class="info filled-info">
-        <span>您已填写了{{ numOfFilled }}份问卷:
+        <span>您已填写了{{ !!numOfFilled ? numOfFilled : 0 }}份问卷:
           <span :class="{mouse_on_check: mouseOnFilled}" class="go-to-manage-btn" @click="checkFilled"
                 @mouseover="mouseOnFilled=true" @mouseleave="mouseOnFilled=false">点此查看</span>
         </span>
       </span>
 
       <span class="info draft-info">
-        <span>您还有{{ numOfDrafts }}份问卷未发布:
+        <span>您还有{{ !!numOfDrafts ? numOfDrafts : 0 }}份问卷未发布:
           <span :class="{mouse_on_check: mouseOnDraft}" class="go-to-manage-btn" @click="checkDrafts"
                 @mouseover="mouseOnDraft=true" @mouseleave="mouseOnDraft=false">点此继续编辑</span>
         </span>
@@ -58,10 +58,10 @@ export default {
   data() {
     return {
       isLoggingOut: false,
-      userName: '学长',
-      numOfReleased: 5,  // 已发布的问卷份数
-      numOfFilled: 6,   //  已填写的问卷份数
-      numOfDrafts: 3,   //  保存的草稿数
+      userName: localStorage.getItem("username"),
+      numOfReleased: localStorage.getItem("numOfRelease"),  // 已发布的问卷份数
+      numOfFilled: localStorage.getItem("numOfFilling"),   //  已填写的问卷份数
+      numOfDrafts: localStorage.getItem("numOfDraft"),   //  保存的草稿数
 
       mouseOnReleased: false,
       mouseOnFilled: false,
@@ -76,7 +76,12 @@ export default {
     logout() {
       // 用户登出，删除当前用户网页信息，推入主页面
       // TODO: 前端删除用户信息
-
+      localStorage.removeItem("userId")
+      localStorage.removeItem("username")
+      localStorage.removeItem("userAcNumber")
+      localStorage.removeItem("numOfRelease")
+      localStorage.removeItem("numOfDraft")
+      localStorage.removeItem("numOfFilling")
       // 退回主界面
       this.$router.push('/')
     },

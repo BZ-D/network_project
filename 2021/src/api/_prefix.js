@@ -1,4 +1,4 @@
-export const API_VERSION = "/api";
+export const API_VERSION = "";
 
 export const ANSWER_MODULE = `${API_VERSION}/answer`;
 export const QUESTION_MODULE = `${API_VERSION}/question`;

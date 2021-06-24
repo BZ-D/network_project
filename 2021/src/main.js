@@ -3,6 +3,9 @@ import router from './router'
 import Vue from 'vue'
 import store from './store'
 import {sync} from "vuex-router-sync";
+import axios from "axios";
+
+axios.defaults.baseURL = 'http://localhost:8081'
 
 sync(store, router)
 

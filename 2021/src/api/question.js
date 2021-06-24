@@ -1,4 +1,5 @@
 import axios from "axios";
+import {QUESTION_MODULE} from "@/api/_prefix";
 
 export const insertQuestions = payload => {
     console.log(payload)
@@ -12,8 +13,9 @@ export const insertQuestions = payload => {
     })
 }
 export const getQuestions = payload => {
+    // 根据qnid请求问题
     console.log(payload)
-    return axios.post('${QUESTION_MODULE}/getQuestions/${qnId}').then(res => {
+    return axios.get(`${QUESTION_MODULE}/getQuestions/${payload}`).then(res => {
         return res.data
     })
 }

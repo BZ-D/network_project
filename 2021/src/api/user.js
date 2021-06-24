@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {USER_MODULE} from "@/api/_prefix";
 
 //POST 请求不会被缓存
 //POST 请求不会保留在浏览器历史记录中
@@ -12,30 +13,28 @@ import axios from 'axios'
 //GET 请求只应当用于取回数据（不修改）
 export const login = payload => {
   console.log(payload)
-  const { acNumber, password } = payload
-  return axios.post('${USER_MODULE}/login', { acNumber, password }).then(res => {
-    return res.data
+  const {acNumber, password} = payload
+  return axios.post(`${USER_MODULE}/login`, {acNumber, password}).then(res => {
+    console.log(res)
+    if (res.data.msg === '账号登陆成功！') {
+      return res.data
+    } else {
+      return -1
+    }
   })
 }
 
 export const signup = payload => {
-  console.log(payload)
-  const {
-    acNumber,
-      uname,
-    password
-  } = payload
-  return axios.post('${USER_MODULE}/signup', {
-    acNumber,
-    uname,
-    password
-  }).then(res => {
+  const {acNumber, uname, password} = payload
+  console.log({acNumber, uname, password})
+  return axios.post(`${USER_MODULE}/signup`, {acNumber, uname, password}).then(res => {
     return res.data
   })
 }
-export const getuser = payload => {
+export const getUserByUid = payload => {
+
   console.log(payload)
-  return axios.post('${USER_MODULE}/${uid}').then(res => {
+  return axios.get(`${USER_MODULE}/${payload}`).then(res => {
     return res.data
   })
 }

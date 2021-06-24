@@ -1,10 +1,12 @@
 package cn.groupofseven.questionaresystem.vo;
 
 import cn.groupofseven.questionaresystem.po.User;
+import lombok.Data;
 import lombok.NonNull;
 
 import java.util.Date;
 
+@Data
 public class UserVO {
     private Integer id;
 

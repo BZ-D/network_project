@@ -60,37 +60,31 @@ export default {
       }
 
       // 第一遍检查：前端检查，如果不符合正则要求直接提示错误
-      const account_reg = /^[a-zA-Z0-9_]{6,20}$/
-      const passwd_reg = /^[a-zA-Z0-9_]{8,20}$/
-      if (!account_reg.test(this.accountNumber) || !passwd_reg.test(this.passwd)) {
-        window.alert('用户名或密码错误！')
-        return
-      }
+      // const account_reg = /^[a-zA-Z0-9_]{6,20}$/
+      // const passwd_reg = /^[a-zA-Z0-9_]{8,20}$/
+      // if (!account_reg.test(this.accountNumber) || !passwd_reg.test(this.passwd)) {
+      //   window.alert('用户名或密码错误！')
+      //   return
+      // }
 
       // 第二遍检查：后端检查，数据库中是否有此账户，以及账号和密码是否可以对应上
       // TODO
 
-      // login({accountNumber: this.accountNumber, password: this.passwd}).then(res => {
-      //   console.log(res)
-      //   // 期望后端返回
-      //   // res: 是一个对象，内容如下
-      //   // {
-      //   // userId: int 用户在数据库中的id号,
-      //   // accountNumber: String 账号,
-      //   // nickname: String 昵称,
-      //   // releasedQN: [] 该用户已发布问卷（包含问卷的详细问题，以及该问卷的所有填写情况）,
-      //   // filledQN: [] 该用户已填写的问卷（包含此用户填写该问卷的详细情况）,
-      //   // drafts: [] 该用户的草稿问卷（包含问卷的详细问题）
-      //   // }
-      //   if (成功请求到了数据) {
-      //     界面显示登录成功
-      //     this.$store.commit('setUserInfo', res)  // 更新vuex里的用户信息
-      //     this.toMain() // 跳转到main界面，可以开始使用系统
-      //   } else {
-      //     // 没有成功请求到数据
-      //     界面显示登录失败
-      //   }
-      // })
+      login({acNumber: this.accountNumber, password: this.passwd}).then(res => {
+        console.log(res)
+        if (res === -1) {
+          window.alert('账号或密码错误！')
+        } else {
+          window.alert('登录成功！')
+          window.localStorage.setItem("userId", res.data.id);
+          window.localStorage.setItem("userAcNumber", res.data.acNumber);
+          window.localStorage.setItem("username", res.data.uname);
+          window.localStorage.setItem("numOfRelease", res.data.numOfRelease);
+          window.localStorage.setItem("numOfFilling", res.data.numOfFilling);
+          window.localStorage.setItem("numOfDraft", res.data.numOfDraft);
+          this.$router.push('/main')
+        }
+      })
 
 
 

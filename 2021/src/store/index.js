@@ -20,26 +20,11 @@ const store = new Vuex.Store({
       // 对象内容：title, type, must, options[](如果是选择题的话)
     ],
 
-    // 以下存储当前登录用户的相关信息：
-    userID: -1,
-    accountNumber: '',
-    nickname: '',
-    releasedQN: [],
-    filledQN: [],
-    drafts: [],
 
   },
 
 
   mutations: {
-    setUserInfo(state, payload) {
-      state.userID = payload.userID
-      state.accountNumber = payload.accountNumber
-      state.nickname = payload.nickname
-      state.releasedQN = payload.releasedQN
-      state.filledQN = payload.filledQN
-      state.drafts = payload.drafts
-    },
 
     fillTitle(state, QN_title) {
       state.titleOfQN = QN_title

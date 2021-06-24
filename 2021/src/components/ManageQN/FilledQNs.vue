@@ -8,7 +8,7 @@
         </div>
         <div class="release-detail">
           <div class="releaser">
-            发布者：{{ qn.uname }}
+            发布者ID：{{ qn.uid }}
           </div>
           <div class="release-time">
             填写时间：{{ qn.time }}
@@ -27,21 +27,27 @@
       <!--   用于显示填写情况   -->
       <h2 class="qn-title">{{ filledQNTitle }}</h2>
       <div class="questions-area">
-        <div class="question-box" v-for="(question, ind) in questions">
-          <h2 class="title">{{ ind + 1 }}、{{ question.title }}
-            ({{ question.type === 'single' ? '单选题' : question.type === 'multiple' ? '多选题' : '填空题' }}、{{question.must === 'must' ? '必答' : '选答'}})</h2>
+        <div class="question-box" v-for="(question, ind) in filledContent">
+          <h2 class="title">题目ID：{{ question.id }}
+            ({{
+              question.type === 'single' ? '单选题' : question.type === 'multiple' ? '多选题' : '填空题'
+            }})</h2>
 
-          <div class="options-area" v-if="question.type!=='gap-fill'">
-            <ol class="option" type="A">
-              <li :class="{selected: filledContent[ind]===i+1 || filledContent[ind][i]===1}"
-                  v-for="(option, i) in question.options">{{ option }}
-              </li>
-            </ol>
+          <div class="answer-show-area">
+            您的答案：{{ question.answer }}
           </div>
 
-          <div class="gap-fill-area" v-if="question.type==='gap-fill'">
-            {{ filledContent[ind] }}
-          </div>
+<!--          <div class="options-area" v-if="question.type!=='gap-fill'">-->
+<!--            <ol class="option" type="A">-->
+<!--              <li :class="{selected: filledContent[ind]===i+1 || filledContent[ind][i]===1}"-->
+<!--                  v-for="(option, i) in question.options">{{ option }}-->
+<!--              </li>-->
+<!--            </ol>-->
+<!--          </div>-->
+
+<!--          <div class="gap-fill-area" v-if="question.type==='gap-fill'">-->
+<!--            {{ filledContent[ind].answer }}-->
+<!--          </div>-->
           <div class="underline" v-if="question.type==='gap-fill'"></div>
         </div>
       </div>
@@ -52,93 +58,33 @@
 
 <script>
 
+import {checkFilled} from "@/api/questionare";
+import {getAnswers} from "@/api/answer";
+
 export default {
   name: "FilledQNs",
   data() {
     return {
       searchResults: [
-        {
-          title: '关于大学生兼职状况的调查问卷',
-          uid: 1,
-          qnID: 1,
-          uname: '丁炳智',
-          time: '2021-5-31',
-          mouseOnCheck: false
-        },
-        {
-          title: '青少年恋爱观调查问卷',
-          uid: 1,
-          qnID: 2,
-          uname: '丁炳智',
-          time: '2021-5-29',
-          mouseOnCheck: false
-        },
-        {
-          title: '中小学生作业压力与学习成绩关系的调查',
-          uid: 1,
-          qnID: 1,
-          uname: '丁炳智',
-          time: '2021-6-3',
-          mouseOnCheck: false
-        },
+        // {
+        //   title: '关于大学生兼职状况的调查问卷',
+        //   uid: 1,
+        //   qnID: 1,
+        //   uname: '丁炳智',
+        //   time: '2021-5-31',
+        //   mouseOnCheck: false
+        // }
       ],
       isBrowsingFilled: false,  // 是否正在查看已填写问卷的填写情况
       filledQNTitle: '',
-      questions: [
-        {
-          title: '您的年龄？',
-          type: 'gap-fill',
-          must: 'must',
-          options: []
-        },
-        {
-          title: '您的性别？',
-          type: 'single',
-          must: 'must',
-          options: [
-            '男', '女'
-          ]
-        },
-        {
-          title: '您的学历？',
-          type: 'single',
-          must: 'must',
-          options: [
-            '初中及以下',
-            '高中',
-            '本科',
-            '硕士及以上'
-          ]
-        },
-        {
-          title: '您的姓名？',
-          type: 'gap-fill',
-          must: 'must',
-          options: []
-        },
-        {
-          title: '您的学号？',
-          type: 'gap-fill',
-          must: 'must',
-          options: []
-        },
-        {
-          title: '您最喜欢的水果？',
-          type: 'multiple',
-          must: 'optional',
-          options: [
-            '香蕉', '菠萝', '草莓', '苹果', '橙子', '荔枝'
-          ]
-        }
-      ],
       filledContent: [
         // 元素为question对象
-        20,
-        1,
-        3,
-        '学长',
-        '123456',
-        [0, 1, 1, 0, 0, 1]
+        // 20,
+        // 1,
+        // 3,
+        // '学长',
+        // '123456',
+        // [0, 1, 1, 0, 0, 1]
       ]
     }
   },
@@ -147,11 +93,73 @@ export default {
       this.isBrowsingFilled = true
       this.filledQNTitle = title
 
+      getAnswers({
+        qnId: qnID,
+        uid: uid
+      }).then(res => {
+        console.log(res)
+        for (const ans of res) {
+          if (ans.gapAnswer === '无') {
+            // 不是填空题
+            const options = ['A', 'B', 'C', 'D', 'E', 'F']
+            if (ans.singleAnswer === 0) {
+              // 多选题
+              let multiAns = ''
+              const optionsAns = [
+                ans.multiOne,
+                ans.multiTwo,
+                ans.multiThree,
+                ans.multiFour,
+                ans.multiFive,
+                ans.multiSix
+              ]
+              for(const i in optionsAns) {
+                if (optionsAns[i]) {
+                  multiAns += options[i]
+                }
+              }
+              this.filledContent.push({
+                id: ans.questionId,
+                answer: multiAns,
+                type: 'multiple'
+              })
+            } else {
+              // 单选题
+              this.filledContent.push({
+                answer: options[ans.singleAnswer - 1],
+                type: 'single',
+                id: ans.questionId
+              })
+            }
+          } else {
+            // 填空题
+            this.filledContent.push({
+              answer: ans.gapAnswer,
+              type: 'gapFill',
+              id: ans.questionId
+            })
+          }
+        }
+      })
     }
+  },
+  created() {
+    const userID = localStorage.getItem("userId")
+    checkFilled(userID).then(res => {
+      console.log(res)
+      for (const qn of res) {
+        this.searchResults.push({
+          title: qn.titleOfQn,
+          uid: qn.createUserId,
+          qnID: qn.id,
+          time: qn.createTime.substr(0, 10),
+          mouseOnCheck: false
+        })
+      }
+    })
   }
 }
 
-// TODO: 显示当前用户填写过的所有问卷，这些问卷都可以查看，点击查看问卷后，页面显示checkfilledqn组件
 </script>
 
 <style scoped>

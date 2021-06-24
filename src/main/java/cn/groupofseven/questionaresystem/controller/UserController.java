@@ -22,8 +22,9 @@ public class UserController {
         return userService.userLogin(userForm.getAcNumber(),userForm.getPassword());
     }
     //api中暂未给出方法，但需要该方法传递用户所有信息
-    @PostMapping("/{uid}")
+    @GetMapping("/{uid}")
     public UserVO getUser(@PathVariable Integer uid){
+        System.out.println("hee");
         return userService.getUser(uid);
     }
 }

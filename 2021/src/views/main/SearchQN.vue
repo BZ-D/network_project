@@ -9,7 +9,7 @@
         <span class="search-type">
         <select name="search-type" id="" @change="changeSearchType($event)" class="options">
           <option value="name-of-qn">按问卷名称</option>
-          <option value="name-of-user">按发布人名称</option>
+          <option value="name-of-user">按发布人id</option>
         </select>
       </span>
         <span class="search-icon">
@@ -24,19 +24,19 @@
         <!--   用于放置搜索到的问卷结果   -->
         <div class="qn-box" v-for="(qn, index) in searchResults">
           <div class="title">
-            <h2>{{ qn.title }}</h2>
+            <h2>{{ qn.titleOfQn }}</h2>
           </div>
           <div class="release-detail">
             <div class="releaser">
-              发布者：{{ qn.uname }}
+              发布人ID：{{ qn.createUserId }}
             </div>
             <div class="release-time">
-              发布时间：{{ qn.time }}
+              发布时间：{{ qn.createTime }}
             </div>
           </div>
           <div class="fill-btn-area">
             <div :class="{active:qn.mouseOnFill}" class="fill-btn" @mouseover="qn.mouseOnFill=true"
-                 @mouseleave="qn.mouseOnFill=false" @click="gotoFillQN(qn.qnID, qn.title)">
+                 @mouseleave="qn.mouseOnFill=false" @click="gotoFillQN(qn.qnId, qn.titleOfQn)">
               填写问卷
             </div>
           </div>
@@ -89,6 +89,9 @@
 
 <script>
 
+import {searchByTitle, searchByUser} from "@/api/questionare";
+import {getQuestions} from "@/api/question";
+
 export default {
   name: "SearchQN",
   computed: {
@@ -105,86 +108,13 @@ export default {
       searchContent: '',
       fillingQNId: 0,
       searchResults: [
-        {
-          title: '关于大学生兼职状况的调查问卷',
-          uid: 1,
-          qnID: 1,
-          uname: '丁炳智',
-          time: '2021-5-31',
-          mouseOnFill: false
-        },
-        {
-          title: '青少年恋爱观调查问卷',
-          uid: 1,
-          qnID: 2,
-          uname: '丁炳智',
-          time: '2021-5-29',
-          mouseOnFill: false
-        },
-        {
-          title: '中小学生作业压力与学习成绩关系的调查',
-          uid: 1,
-          qnID: 1,
-          uname: '丁炳智',
-          time: '2021-6-3',
-          mouseOnFill: false
-        },
+        // 存放搜索到的结果
       ],
       isFillingQN: false,
       fillingQNTitle: '',
       questions: [
-        {
-          title: '您的年龄？',
-          type: 'gap-fill',
-          must: 'must',
-          options: [],
-          id: 0
-        },
-        {
-          title: '您的性别？',
-          type: 'single',
-          must: 'must',
-          options: [
-            '男', '女'
-          ],
-          id: 1
-        },
-        {
-          title: '您的学历？',
-          type: 'single',
-          must: 'must',
-          options: [
-            '初中及以下',
-            '高中',
-            '本科',
-            '硕士及以上'
-          ],
-          id: 2
-        },
-        {
-          title: '您的姓名？',
-          type: 'gap-fill',
-          must: 'must',
-          options: [],
-          id: 3
-        },
-        {
-          title: '您的学号？',
-          type: 'gap-fill',
-          must: 'must',
-          options: [],
-          id: 4
-        },
-        {
-          title: '您最喜欢的水果？',
-          type: 'multiple',
-          must: 'optional',
-          options: [
-            '香蕉', '菠萝', '草莓', '苹果', '橙子', '荔枝'
-          ],
-          id: 5
-        }
-      ], // 从后端请求问题
+        // 用于存放选择填写的问卷包含的问题
+      ],
       answersArray: [],
       answers: [
         // 内存对象，最终传到后端的数组
@@ -202,7 +132,7 @@ export default {
   },
   methods: {
     changeSearchType(event) {
-      this.placeholder = event.target.value === 'name-of-qn' ? '请在此输入问卷名称' : '请在此输入发布人名称'
+      this.placeholder = event.target.value === 'name-of-qn' ? '请在此输入问卷名称' : '请在此输入发布人id'
     },
     searchQN() {
       // 点击放大镜图标后搜索
@@ -218,28 +148,106 @@ export default {
       // TODO: 在输入框文本合格后，请求后端数据库相关的问卷，并显示到页面上
 
 
-      // if (this.placeholder === '请在此输入问卷名称') {
-      //   // 按问卷名称搜索
-      //   searchByTitle({searchContent: this.searchContent}).then(res => {
-      //     if (搜索成功) {
-      //       显示所有搜索结果，要求res返回所有相关的问卷信息
-      //       包括问卷id、问卷名称、问卷包含的题目数组、发布用户的id、发布用户的昵称，作为一个对象返回
-      //     } else {
-      //       显示搜索失败相关信息
-      //     }
-      //   })
-      // } else {
-      //   searchByUser({searchContent: this.searchContent}).then(res => {
-      //     if (搜索成功) {
-      //       显示所有搜索结果，要求res返回所有相关的问卷信息
-      //       包括问卷id、问卷名称、问卷包含的题目数组、发布用户的id、发布用户的昵称，作为一个对象返回
-      //     } else {
-      //       显示搜索失败相关信息
-      //     }
-      //   })
-      // }
+      if (this.placeholder === '请在此输入问卷名称') {
+        // 按问卷名称搜索
+        searchByTitle(this.searchContent).then(res => {
+          console.log(res)
+          if (res.length === 0) {
+            window.alert('没有查找到相关问卷！')
+            return
+          }
+          // res是Array类型，元素是问卷结果VO，内容有：
+          // createTime: "2021-06-03T08:00:00.000+00:00"
+          // createUserId: int
+          // id: int 问卷id
+          // isDraft: bool
+          // numOfQuestions: int
+          // titleOfQn: String
+          for (const qn of res) {
+            if (!qn.isDraft) {
+              this.searchResults.push({
+                createTime: qn.createTime.substr(0, 10),
+                createUserId: qn.createUserId,
+                qnId: qn.id,
+                numOfQuestions: qn.numOfQuestions,
+                titleOfQn: qn.titleOfQn,
+                mouseOnFill: false
+              })
+            }
+          }
+        })
+      } else {
+        // 按用户id搜索
+        searchByUser(parseInt(this.searchContent)).then(res => {
+          console.log(res)
+          if (res.length === 0) {
+            window.alert('该用户没有发布问卷！')
+            return
+          }
+
+          // res是Array类型，元素是问卷结果VO，内容有：
+          // createTime: "2021-06-03T08:00:00.000+00:00"
+          // createUserId: int
+          // id: int 问卷id
+          // isDraft: bool
+          // numOfQuestions: int
+          // titleOfQn: String
+          for (const qn of res) {
+            if (!qn.isDraft) {
+              this.searchResults.push({
+                createTime: qn.createTime.substr(0, 10),
+                createUserId: qn.createUserId,
+                qnId: qn.id,
+                numOfQuestions: qn.numOfQuestions,
+                titleOfQn: qn.titleOfQn,
+                mouseOnFill: false
+              })
+            }
+          }
+        })
+      }
     },
     gotoFillQN(qnID, title) {
+      getQuestions(qnID).then(res => {
+        console.log(res)
+        for (const question of res) {
+          let options = []
+          if(question.optionA !== "无")
+            options.push(question.optionA)
+          if(question.optionB !== "无")
+            options.push(question.optionB)
+          if(question.optionC !== "无")
+            options.push(question.optionC)
+          if(question.optionD !== "无")
+            options.push(question.optionD)
+          if(question.optionE !== "无")
+            options.push(question.optionE)
+          if(question.optionF !== "无")
+            options.push(question.optionF)
+
+          this.questions.push({
+            id: question.id,
+            type: question.type,
+            must: question.isMust,
+            options: options,
+            title: question.questionTitle
+          })
+
+          // 初始化answersArray数组
+          switch (question.type) {
+            case "single":
+              this.answersArray.push(0)
+              break
+            case "multiple":
+              this.answersArray.push([0, 0, 0, 0, 0, 0])
+              break
+            case "gap-fill":
+              this.answersArray.push('')
+              break
+          }
+        }
+      })
+
       this.isFillingQN = true
       this.fillingQNTitle = title
       this.fillingQNId = qnID
@@ -347,23 +355,6 @@ export default {
       }
     }
   },
-  created() {
-    if (this.answersArray.length === 0) {
-      for (const question of this.questions) {
-        switch (question.type) {
-          case "single":
-            this.answersArray.push(0)
-            break
-          case "multiple":
-            this.answersArray.push([0, 0, 0, 0, 0, 0])
-            break
-          case "gap-fill":
-            this.answersArray.push('')
-            break
-        }
-      }
-    }
-  }
 }
 </script>
 
