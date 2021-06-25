@@ -10,6 +10,7 @@ const store = new Vuex.Store({
   state: {
     maxOfQuestions: 20,  // 题目最大数量
     titleOfQN: '',  // 现在正在创建问卷的题目
+    QnId:6,
     gotoCreateDetail: false,  // 是否正确输入了问卷题目，为true时，跳转到题目添加页面
     isAdding: false, // 创建问卷页面是否正在添加题目？（true：突出显示题型选择框）
     numOfQuestions: 0,  //  记录题目数量，上限为20
@@ -47,7 +48,8 @@ const store = new Vuex.Store({
         title: info.title,  // 目前正在添加的题目名称
         type: info.type,  // 目前正在添加的题型
         must: info.must,  // 目前正在添加的题目必答与否
-        options: [],
+        size:0,
+        options: []
       })
     },
     cancelAdding(state) {
@@ -67,6 +69,7 @@ const store = new Vuex.Store({
       for (const option of payload.options) {
         state.questions[payload.index].options.push(option)
       }
+      state.questions[payload.index].options.size=state.questions[payload.index].options.length
     },
     deleteQN_when_creating(state) {
       // 当创建问卷的时候点击下方的丢弃问卷按钮，删除正在创建的问卷

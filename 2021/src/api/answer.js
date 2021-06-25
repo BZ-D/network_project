@@ -4,10 +4,30 @@ import {ANSWER_MODULE} from "@/api/_prefix";
 export const insertAnswers = payload => {
     console.log(payload)
     const {
-        不太会写这个对象数组怎么传
+        answerUserId,
+        answerQnId,
+        questionId,
+        gapAnswer,
+        singleAnswer,
+        multiOne,
+        multiTwo,
+        multiThree,
+        multiFour,
+        multiFive,
+        multiSix
     } = payload
-    return axios.post('${ANSWER_MODULE}/insertAnswers', {
-        不太会写这个对象数组怎么传
+    return axios.post(`${ANSWER_MODULE}/insertAnswers`,  {
+        answerUserId,
+        answerQnId,
+        questionId,
+        gapAnswer,
+        singleAnswer,
+        multiOne,
+        multiTwo,
+        multiThree,
+        multiFour,
+        multiFive,
+        multiSix
     }).then(res => {
         return res.data
     })

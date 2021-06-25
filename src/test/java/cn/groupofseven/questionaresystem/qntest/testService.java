@@ -93,7 +93,7 @@ public class testService {
         gg.add(questionVO);
         gg.add(questionVO1);
         gg.add(questionVO2);
-        questionService.insertQuestions(gg);
+        //questionService.insertQuestions(gg);
     }
 
     @Test
@@ -171,7 +171,7 @@ public class testService {
         answerVOList.add(answerVO);
         answerVOList.add(answerVO1);
         answerVOList.add(answerVO2);
-        answerService.insertAnswers(answerVOList);
+        //answerService.insertAnswers(answerVOList);
     }
 
     @Test

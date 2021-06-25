@@ -21,7 +21,6 @@ public class UserController {
     public ResultVO<UserVO> login(@RequestBody UserFormVO userForm){
         return userService.userLogin(userForm.getAcNumber(),userForm.getPassword());
     }
-    //api中暂未给出方法，但需要该方法传递用户所有信息
     @GetMapping("/{uid}")
     public UserVO getUser(@PathVariable Integer uid){
         System.out.println("hee");

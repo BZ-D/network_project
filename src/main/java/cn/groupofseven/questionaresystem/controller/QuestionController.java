@@ -14,9 +14,10 @@ public class QuestionController {
     @Resource
     private QuestionService questionService;
 
-    @PostMapping("/insertQuestions/{qnId}")
-    public List<QuestionVO> insertQuestions(@RequestBody List<QuestionVO> questions) {
-        return questionService.insertQuestions(questions);
+    @PostMapping("/insertQuestions")
+    public ResultVO<QuestionVO> insertQuestions(@RequestBody QuestionVO question) {
+        System.out.println("hdiashdioahsdiasdioha");
+        return questionService.insertQuestions(question);
     }
 
     @GetMapping("/getQuestions/{qnId}")

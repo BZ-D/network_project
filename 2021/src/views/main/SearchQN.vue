@@ -90,7 +90,8 @@
 <script>
 
 import {searchByTitle, searchByUser} from "@/api/questionare";
-import {getQuestions} from "@/api/question";
+import {getQuestions, insertQuestions} from "@/api/question";
+import {insertAnswers} from "@/api/answer";
 
 export default {
   name: "SearchQN",
@@ -276,6 +277,7 @@ export default {
     confirmFilling() {
       const confirm = window.confirm('确定提交问卷吗？')
       if (confirm) {
+        console.log("hdiuashf")
         // 检查每道题的答案是否规范
         for (let i = 0; i < this.answersArray.length; ++i) {
           // 先检查是否有必答题漏答
@@ -323,7 +325,7 @@ export default {
           //    */]
           if (this.questions[i].type === 'gap-fill') {
             this.answers.push({
-              answerUserId: this.$store.state.userID,
+              answerUserId: window.localStorage.getItem("userId"),
               answerQnId: this.fillingQNId,
               questionId: this.questions[i].id,
               gapAnswer: this.answersArray[i],
@@ -332,7 +334,7 @@ export default {
             })
           } else if (this.questions[i].type === 'single') {
             this.answers.push({
-              answerUserId: this.$store.state.userID,
+              answerUserId: window.localStorage.getItem("userId"),
               answerQnId: this.fillingQNId,
               questionId: this.questions[i].id,
               gapAnswer: '无',
@@ -341,7 +343,7 @@ export default {
             })
           } else if (this.questions[i].type === 'multiple') {
             this.answers.push({
-              answerUserId: this.$store.state.userID,
+              answerUserId: window.localStorage.getItem("userId"),
               answerQnId: this.fillingQNId,
               questionId: this.questions[i].id,
               gapAnswer: '无',
@@ -351,7 +353,35 @@ export default {
           }
 
         }
-
+        let k=String(Number(window.localStorage.getItem("numOfFilling"))+1)
+        window.localStorage.setItem("numOfFilling",k)
+        for(const an of this.answers) {
+          console.log(an.answerUserId)
+          for(let i=0;i<100;i++){
+            console.log("正在提交请稍后")
+          }
+          insertAnswers({
+            answerUserId:an.answerUserId,
+            answerQnId:an.answerQnId,
+            questionId:an.questionId,
+            gapAnswer:an.gapAnswer,
+            singleAnswer:an.singleAnswer,
+            multiOne:an.multiAnswer[0],
+            multiTwo:an.multiAnswer[1],
+            multiThree:an.multiAnswer[2],
+            multiFour:an.multiAnswer[3],
+            multiFive:an.multiAnswer[4],
+            multiSix:an.multiAnswer[5]
+          }).then(res=>{
+            for(let i=0;i<100;i++){
+              console.log("正在提交请稍后")
+            }
+            console.log(res)
+            if (res===-1) {
+            } else {
+            }
+          })
+        }
       }
     }
   },

@@ -40,13 +40,13 @@ export const checkDraft = payload => {
 export const release = payload => {
   console.log(payload)
   const {
-    createUserID,
+    createUserId,
     titleOfQn,
     isDraft,
     numOfQuestions
   } = payload
   return axios.post(`${QUESTIONARE_MODULE}/release`, {
-    createUserID,
+    createUserId,
     titleOfQn,
     isDraft,
     numOfQuestions
@@ -58,13 +58,13 @@ export const release = payload => {
 export const draft = payload => {
   console.log(payload)
   const {
-    createUserID,
+    createUserId,
     titleOfQn,
     isDraft,
     numOfQuestions
   } = payload
-  return axios.post('${QUESTIONARE_MODULE}/draft', {
-    createUserID,
+  return axios.post(`${QUESTIONARE_MODULE}/draft`, {
+    createUserId,
     titleOfQn,
     isDraft,
     numOfQuestions

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -38,9 +39,11 @@ public class QuestionareServiceImpl implements QuestionareService {
             userMapper.decreaseDraft(uid);
         }
         else{
+            newquestionare.setCreateTime(new Date());
             questionareMapper.insert(newquestionare);
             userMapper.increaseRelease(uid);
         }
+        questionare.setId(questionareMapper.selectByTitle(questionare.getTitleOfQn()).get(0).getId());
         return new ResultVO<QuestionareVO>(Constant.REQUEST_SUCCESS,"发布问卷成功",questionare);
     }
 
@@ -49,6 +52,7 @@ public class QuestionareServiceImpl implements QuestionareService {
         questionare.setIsDraft(true);
         Questionare newquestionare = new Questionare(questionare);
         int uid = questionare.getCreateUserId();
+        newquestionare.setCreateTime(new Date());
         questionareMapper.insert(newquestionare);
         userMapper.increaseDraft(uid);
         return new ResultVO<QuestionareVO>(Constant.REQUEST_SUCCESS,"保存草稿成功",questionare);

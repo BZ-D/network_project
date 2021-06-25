@@ -2,13 +2,32 @@ import axios from "axios";
 import {QUESTION_MODULE} from "@/api/_prefix";
 
 export const insertQuestions = payload => {
-    console.log(payload)
     const {
-        不太会写这个对象数组怎么传
-    } = payload
-    return axios.post('${QUESTION_MODULE}/insertQuestions', {
-        不太会写这个对象数组怎么传
-    }).then(res => {
+                qnId,
+                questionTitle,
+                type,
+                isMust,
+                optionA,
+                optionB,
+                optionC,
+                optionD,
+                optionE,
+                optionF
+            }
+    = payload
+    return axios.post(`${QUESTION_MODULE}/insertQuestions`, {
+                qnId,
+                questionTitle,
+                type,
+                isMust,
+                optionA,
+                optionB,
+                optionC,
+                optionD,
+                optionE,
+                optionF
+            }
+    ).then(res => {
         return res.data
     })
 }

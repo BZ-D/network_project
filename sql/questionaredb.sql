@@ -10,7 +10,7 @@ CREATE TABLE `user_intel`  (
     `num_of_release` int(11) NOT NULL DEFAULT 0,
     `num_of_draft` int(11) NOT NULL DEFAULT 0,
     `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-    `create_time` datetime(0) NOT NULL,
+    `create_time` datetime(0) DEFAULT CURRENT_TIMESTAMP(0),
     PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 INSERT INTO `user_intel` VALUES (1, '12345678','Mr学长',1,1,0,  '123456abc_', '2021-6-3 16:00:00');
@@ -23,12 +23,14 @@ CREATE TABLE `questionare`  (
     `title_of_qn` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
     `is_draft` tinyint(1) NOT NULL DEFAULT 1,
     `num_of_questions` int(11) NOT NULL,
-    `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+    `create_time` datetime(0) DEFAULT CURRENT_TIMESTAMP(0),
     PRIMARY KEY (`id`) USING BTREE,
-    INDEX `fk_user_qn`(`create_user_id`) USING BTREE,
-    CONSTRAINT `fk_user_qn` FOREIGN KEY (`create_user_id`) REFERENCES `user_intel` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
+    INDEX `fk_user_qn`(`create_user_id`) USING BTREE
+    /*CONSTRAINT `fk_user_qn` FOREIGN KEY (`create_user_id`) REFERENCES `user_intel` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
+
+     */
 ) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-INSERT INTO `questionare` VALUES (1, 1,'调查网站用户基本信息', '1', '4', '2021-6-3 16:00:00');
+INSERT INTO `questionare` VALUES (1, 1,'调查网站用户基本信息', 0, '4', '2021-6-3 16:00:00');
 
 DROP TABLE IF EXISTS `question`;
 CREATE TABLE `question`  (
@@ -43,10 +45,12 @@ CREATE TABLE `question`  (
     `option_d` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '无',
     `option_e` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '无',
     `option_f` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '无',
-    `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+    `create_time` datetime(0) DEFAULT CURRENT_TIMESTAMP(0),
     PRIMARY KEY (`id`) USING BTREE,
-    INDEX `fk_qn_question`(`qn_id`) USING BTREE,
-    CONSTRAINT `fk_qn_question` FOREIGN KEY (`qn_id`) REFERENCES `questionare` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
+    INDEX `fk_qn_question`(`qn_id`) USING BTREE
+    /*CONSTRAINT `fk_qn_question` FOREIGN KEY (`qn_id`) REFERENCES `questionare` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
+
+     */
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 INSERT INTO `question` VALUES (1,1, '您的性别？', 'single', 1,'man','woman','无','无','无','无', '2021-6-3 16:00:00');
 INSERT INTO `question` VALUES (2,1, '您的名字？', 'gap-fill', 1, '无','无','无','无','无','无','2021-6-3 16:00:00');
@@ -69,14 +73,16 @@ CREATE TABLE `answer`  (
     `multi_five` tinyint(1) NOT NULL DEFAULT 0,
     `multi_six` tinyint(1) NOT NULL DEFAULT 0,
 
-    `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+    `create_time` datetime(0) DEFAULT CURRENT_TIMESTAMP(0),
     PRIMARY KEY (`id`) USING BTREE,
     INDEX `fk_question_answer`(`question_id`) USING BTREE,
     INDEX `fk_user_answer`(`answer_user_id`) USING BTREE,
-    INDEX `fk_qn_answer`(`answer_qn_id`) USING BTREE,
-    CONSTRAINT `fk_question_answer` FOREIGN KEY (`question_id`) REFERENCES `question` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+    INDEX `fk_qn_answer`(`answer_qn_id`) USING BTREE
+    /*CONSTRAINT `fk_question_answer` FOREIGN KEY (`question_id`) REFERENCES `question` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT `fk_user_answer` FOREIGN KEY (`answer_user_id`) REFERENCES `user_intel` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT `fk_qn_answer` FOREIGN KEY (`answer_qn_id`) REFERENCES `questionare` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+
+     */
 ) ENGINE = InnoDB AUTO_INCREMENT = 198 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 INSERT INTO `answer` VALUES (1, 1, 1,1, '无',1,0,0,0,0,0,0,'2020-12-18 10:00:00');
 INSERT INTO `answer` VALUES (2, 1, 1,2, '学长',0,0,0,0,0,0,0, '2020-12-18 10:00:00');

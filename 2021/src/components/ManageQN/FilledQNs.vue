@@ -28,27 +28,24 @@
       <h2 class="qn-title">{{ filledQNTitle }}</h2>
       <div class="questions-area">
         <div class="question-box" v-for="(question, ind) in filledContent">
+          <div class="answerselect" v-for="(questionSelect, ind2) in questionContent">
+            <div class="qestion-answer" v-if="question.id===questionSelect.id">
           <h2 class="title">题目ID：{{ question.id }}
             ({{
               question.type === 'single' ? '单选题' : question.type === 'multiple' ? '多选题' : '填空题'
             }})</h2>
-
+          <div class="title-show-area">
+            题目名称：{{ questionSelect.qname}}
+          </div>
+          <div class="opt-show-area">
+            {{ questionSelect.content }}
+          </div>
           <div class="answer-show-area">
             您的答案：{{ question.answer }}
           </div>
-
-<!--          <div class="options-area" v-if="question.type!=='gap-fill'">-->
-<!--            <ol class="option" type="A">-->
-<!--              <li :class="{selected: filledContent[ind]===i+1 || filledContent[ind][i]===1}"-->
-<!--                  v-for="(option, i) in question.options">{{ option }}-->
-<!--              </li>-->
-<!--            </ol>-->
-<!--          </div>-->
-
-<!--          <div class="gap-fill-area" v-if="question.type==='gap-fill'">-->
-<!--            {{ filledContent[ind].answer }}-->
-<!--          </div>-->
-          <div class="underline" v-if="question.type==='gap-fill'"></div>
+            <div class="underline" v-if="question.type==='gap-fill'"></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -60,6 +57,7 @@
 
 import {checkFilled} from "@/api/questionare";
 import {getAnswers} from "@/api/answer";
+import {getQuestions} from "@/api/question";
 
 export default {
   name: "FilledQNs",
@@ -77,6 +75,8 @@ export default {
       ],
       isBrowsingFilled: false,  // 是否正在查看已填写问卷的填写情况
       filledQNTitle: '',
+      questionContent: [
+      ],
       filledContent: [
         // 元素为question对象
         // 20,
@@ -92,7 +92,73 @@ export default {
     gotoFilledContent(uid, qnID, title) {
       this.isBrowsingFilled = true
       this.filledQNTitle = title
-
+      getQuestions(qnID).then(res => {
+        console.log(res)
+        for (const question of res) {
+          if (question.type === 'gap-fill') {
+            this.questionContent.push({
+              id: question.id,
+              type: 'gap-fill',
+              qname:question.questionTitle,
+              content:'填空题无选项'
+            })
+          }
+          if (question.type === 'single') {
+            let singlec=''
+            if(question.optionA!='无'){
+              singlec=singlec+'A:'+question.optionA+'\n'
+              if(question.optionB!='无'){
+                singlec=singlec+'B:'+question.optionB+'\n'
+                if(question.optionC!='无'){
+                  singlec=singlec+'C:'+question.optionC+'\n'
+                  if(question.optionD!='无'){
+                    singlec=singlec+'D:'+question.optionD+'\n'
+                    if(question.optionE!='无'){
+                      singlec=singlec+'E:'+question.optionE+'\n'
+                      if(question.optionF!='无'){
+                        singlec=singlec+'F:'+question.optionF+'\n'
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            this.questionContent.push({
+              id: question.id,
+              type: 'single',
+              qname:question.questionTitle,
+              content:singlec
+            })
+          }
+          if (question.type === 'multiple') {
+            let singlec=''
+            if(question.optionA!='无'){
+              singlec=singlec+'A:'+question.optionA+'\n'
+              if(question.optionB!='无'){
+                singlec=singlec+'B:'+question.optionB+'\n'
+                if(question.optionC!='无'){
+                  singlec=singlec+'C:'+question.optionC+'\n'
+                  if(question.optionD!='无'){
+                    singlec=singlec+'D:'+question.optionD+'\n'
+                    if(question.optionE!='无'){
+                      singlec=singlec+'E:'+question.optionE+'\n'
+                      if(question.optionF!='无'){
+                        singlec=singlec+'F:'+question.optionF+'\n'
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            this.questionContent.push({
+              id: question.id,
+              type: 'multiple',
+              qname:question.questionTitle,
+              content:singlec
+            })
+          }
+        }
+      })
       getAnswers({
         qnId: qnID,
         uid: uid
