@@ -14,7 +14,7 @@ const store = new Vuex.Store({
     gotoCreateDetail: false,  // 是否正确输入了问卷题目，为true时，跳转到题目添加页面
     isAdding: false, // 创建问卷页面是否正在添加题目？（true：突出显示题型选择框）
     numOfQuestions: 0,  //  记录题目数量，上限为20
-
+    draftState:0,
     questions: [
       // 最多可以20个OBJ
       // 已添加的题目，里边存对象

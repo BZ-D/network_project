@@ -107,7 +107,7 @@
     update questionaredb.questionare
     set create_user_id = #{createUserId,jdbcType=INTEGER},
       title_of_qn = #{titleOfQn,jdbcType=VARCHAR},
-      is_draft = #{isDraft,jdbcType=BIT},
+      is_draft = 0,
       num_of_questions = #{numOfQuestions,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}

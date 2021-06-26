@@ -42,6 +42,8 @@ export default {
   },
   methods: {
     gotoDetail(qnID, title) {
+      window.localStorage.setItem("isDraft",'1')
+      console.log( window.localStorage.getItem("isDraft"))
       this.$store.commit('gotoDetailFromDrafts', title)
       this.$router.push('/main/detail')
     }

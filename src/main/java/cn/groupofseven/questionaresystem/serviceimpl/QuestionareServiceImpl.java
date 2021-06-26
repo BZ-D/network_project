@@ -34,6 +34,11 @@ public class QuestionareServiceImpl implements QuestionareService {
         Questionare newquestionare = new Questionare(questionare);
         int uid = questionare.getCreateUserId();
         if(isDraft){   //说明是草稿
+            System.out.println("isDraft");
+            newquestionare.setIsDraft(false);
+            newquestionare= questionareMapper.selectByTitle(newquestionare.getTitleOfQn()).get(0);
+            if(newquestionare.getIsDraft())
+                System.out.println("isDraft");
             questionareMapper.updateByPrimaryKey(newquestionare);
             userMapper.increaseRelease(uid);
             userMapper.decreaseDraft(uid);

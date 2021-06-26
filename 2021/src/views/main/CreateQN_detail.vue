@@ -178,56 +178,83 @@ export default {
         }
       }
       // TODO: 检查结束，每个问题都符合要求后，下面要把问卷传到数据库，数据库存储完毕后，再将该问卷信息从$store中删除
-      release({
-        createUserId: window.localStorage.getItem("userId"),
-        titleOfQn: this.$store.state.titleOfQN,
-        isDraft:0,
-        numOfQuestions:this.$store.state.questions.length
-      }).then(res => {
-        console.log(res)
-        console.log(this.$store.state.questions)
-        if (res===-1) {
-          window.alert('发布失败')
-        } else {
-          let k=String(Number(window.localStorage.getItem("numOfRelease"))+1)
-          window.localStorage.setItem("numOfRelease",k)
-          this.$store.state.QnId=res.data.id+1
-          console.log(res.data.id)
-          window.alert('发布成功')
-        }
-      })
-      //title: info.title,  // 目前正在添加的题目名称
-      //type: info.type,  // 目前正在添加的题型
-      //must: info.must,  // 目前正在添加的题目必答与否
-      //options: [],
-      console.log("ssss")
-      console.log(this.$store.state.questions)
-      for(const q of this.$store.state.questions) {
-        let k=q.size
-        if(k<6){
-          for(let oo=0;oo<6-k;oo++){
-            q.options.push("无")
-          }
-        }
-        let temp=0
-        if(q.must==='必答')
-          temp=1
-        insertQuestions({
-              qnId: this.$store.state.QnId,
-              questionTitle: q.title,
-              type: q.type,
-              isMust: temp,
-              optionA: q.options[0],
-              optionB: q.options[1],
-              optionC: q.options[2],
-              optionD: q.options[3],
-              optionE: q.options[4],
-              optionF: q.options[5]
-            }
-        ).then(res=>{
+      if(window.localStorage.getItem("isDraft")==='0') {
+        console.log("发布非草稿")
+        console.log(this.$store.state.draftState)
+        release({
+          createUserId: window.localStorage.getItem("userId"),
+          titleOfQn: this.$store.state.titleOfQN,
+          isDraft: 0,
+          numOfQuestions: this.$store.state.questions.length
+        }).then(res => {
           console.log(res)
-          if (res===-1) {
+          console.log(this.$store.state.questions)
+          if (res === -1) {
+            window.alert('发布失败')
           } else {
+            let k = String(Number(window.localStorage.getItem("numOfRelease")) + 1)
+            window.localStorage.setItem("numOfRelease", k)
+            this.$store.state.QnId = res.data.id + 1
+            window.localStorage.setItem("isDraft",'0')
+            console.log(res.data.id)
+            window.alert('发布成功')
+          }
+        })
+        //title: info.title,  // 目前正在添加的题目名称
+        //type: info.type,  // 目前正在添加的题型
+        //must: info.must,  // 目前正在添加的题目必答与否
+        //options: [],
+        console.log("ssss")
+        console.log(this.$store.state.questions)
+        for (const q of this.$store.state.questions) {
+          let k = q.size
+          if (k < 6) {
+            for (let oo = 0; oo < 6 - k; oo++) {
+              q.options.push("无")
+            }
+          }
+          let temp = 0
+          if (q.must === '必答')
+            temp = 1
+          insertQuestions({
+                qnId: this.$store.state.QnId,
+                questionTitle: q.title,
+                type: q.type,
+                isMust: temp,
+                optionA: q.options[0],
+                optionB: q.options[1],
+                optionC: q.options[2],
+                optionD: q.options[3],
+                optionE: q.options[4],
+                optionF: q.options[5]
+              }
+          ).then(res => {
+            console.log(res)
+            if (res === -1) {
+            } else {
+            }
+          })
+        }
+      }
+      if(window.localStorage.getItem("isDraft")==='1') {
+        console.log("发布草稿")
+        console.log(this.$store.state.draftState)
+        release({
+          createUserId: window.localStorage.getItem("userId"),
+          titleOfQn: this.$store.state.titleOfQN,
+          isDraft: 1,
+          numOfQuestions: this.$store.state.questions.length
+        }).then(res => {
+          console.log(res)
+          console.log(this.$store.state.questions)
+          if (res === -1) {
+            window.alert('发布失败')
+          } else {
+            let k = String(Number(window.localStorage.getItem("numOfRelease")) + 1)
+            window.localStorage.setItem("numOfRelease", k)
+            window.localStorage.setItem("isDraft",'0')
+            console.log(res.data.id)
+            window.alert('发布成功')
           }
         })
       }

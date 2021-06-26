@@ -82,6 +82,7 @@ export default {
           window.localStorage.setItem("numOfRelease", res.data.numOfRelease);
           window.localStorage.setItem("numOfFilling", res.data.numOfFilling);
           window.localStorage.setItem("numOfDraft", res.data.numOfDraft);
+          window.localStorage.setItem("isDraft", '0');
           this.$router.push('/main')
         }
       })
